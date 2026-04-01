@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Skilled Language Reference — The DOR Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#1a1e28;--surface:#222733;--surface2:#262d3a;--border:#333a48;
+  --blue:#5a9de6;--green:#3ecf7a;--amber:#f0a830;--red:#ef4444;
+  --text:#f0f2f5;--muted:#9ca3b4;
+  --logo-gradient:linear-gradient(135deg,#4a90d9,#3ecf7a);--logo-text:#0c0f14;
+}
+body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color:var(--text);}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* Header */
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;}
+.cp-logo{width:36px;height:36px;background:var(--logo-gradient);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--logo-text);flex-shrink:0;letter-spacing:-0.5px;}
+.hdr-eyebrow{font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:2px;}
+.hdr-title{font-size:17px;font-weight:800;line-height:1;}
+.hdr-title span{color:var(--blue);}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.hdr-badge{background:rgba(90,157,230,0.1);border:1px solid rgba(90,157,230,0.2);color:var(--blue);font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;}
+.fav-toggle{background:rgba(240,168,48,0.08);border:1px solid rgba(240,168,48,0.2);color:var(--amber);font-family:"Mulish",sans-serif;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;cursor:pointer;transition:all 0.2s;}
+.fav-toggle:hover,.fav-toggle.active{background:rgba(240,168,48,0.15);border-color:var(--amber);}
+
+/* Search */
+.search-wrap{padding:12px 24px;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:69px;z-index:99;}
+.search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;transition:border-color 0.2s;}
+.search-box:focus-within{border-color:var(--blue);}
+.search-icon{width:15px;height:15px;color:var(--muted);flex-shrink:0;}
+.search-input{background:none;border:none;outline:none;color:var(--text);font-family:"Mulish",sans-serif;font-size:13px;font-weight:600;width:100%;}
+.search-input::placeholder{color:var(--muted);}
+.search-count{font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0;}
+.search-clear{background:none;border:none;cursor:pointer;color:var(--muted);padding:0;display:none;font-size:18px;line-height:1;flex-shrink:0;transition:color 0.15s;margin-top:-1px;}
+.search-clear:hover{color:var(--text);}
+.search-clear.visible{display:block;}
+
+/* Filters */
+.filter-panel{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:117px;z-index:98;}
+.disc-bar{padding:10px 24px 6px;display:flex;gap:6px;}
+.disc-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all 0.2s;}
+.disc-btn:hover{border-color:var(--green);color:var(--text);}
+.disc-btn.active{background:rgba(62,207,122,0.1);border-color:var(--green);color:var(--green);}
+.cat-bar{padding:4px 24px 10px;display:flex;flex-wrap:wrap;gap:6px;}
+.cat-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:700;letter-spacing:0.05em;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.cat-btn:hover{border-color:var(--blue);color:var(--text);}
+.cat-btn.active{background:rgba(90,157,230,0.1);border-color:var(--blue);color:var(--blue);}
+
+/* Content */
+.content{padding:20px 24px 80px;}
+.cat-section{margin-bottom:32px;}
+.cat-header{font-size:13px;font-weight:800;color:var(--blue);padding:0 0 8px;border-bottom:1px solid var(--border);margin-bottom:12px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:0.06em;}
+.cat-count{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.04em;text-transform:none;}
+.sub-header{font-size:10px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;padding:8px 0 6px;}
+
+/* Phrase cards */
+.phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:11px 14px;margin-bottom:6px;cursor:pointer;transition:all 0.15s;}
+.phrase-card:hover{border-color:var(--blue);background:var(--surface2);}
+.phrase-card.copied{border-color:var(--green);}
+.phrase-card.favorited{border-color:rgba(240,168,48,0.35);}
+.phrase-card.favorited:hover{border-color:var(--amber);}
+.phrase-top{display:flex;align-items:flex-start;gap:10px;}
+.phrase-text{font-size:12.5px;font-weight:600;line-height:1.75;color:var(--text);flex:1;}
+.fav-btn{background:none;border:none;cursor:pointer;font-size:15px;padding:2px 0 0;flex-shrink:0;opacity:0.25;transition:opacity 0.2s,transform 0.15s;line-height:1;}
+.phrase-card:hover .fav-btn{opacity:0.6;}
+.fav-btn.active{opacity:1;}
+.fav-btn:hover{transform:scale(1.2);}
+.phrase-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:7px;}
+.phrase-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.copy-hint{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;opacity:0;transition:opacity 0.15s;white-space:nowrap;}
+.phrase-card:hover .copy-hint{opacity:1;}
+
+/* Tags */
+.tag{font-size:9px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(90,157,230,0.08);color:var(--blue);border:1px solid rgba(90,157,230,0.15);}
+.tag.t-green{background:rgba(62,207,122,0.08);color:var(--green);border-color:rgba(62,207,122,0.15);}
+.tag.t-amber{background:rgba(240,168,48,0.08);color:var(--amber);border-color:rgba(240,168,48,0.15);}
+.tag.t-red{background:rgba(239,68,68,0.08);color:var(--red);border-color:rgba(239,68,68,0.15);}
+
+/* Avoid cards */
+.avoid-card{background:var(--surface);border:1px solid rgba(239,68,68,0.2);border-left:3px solid var(--red);border-radius:6px;padding:11px 14px;margin-bottom:6px;}
+.avoid-bad{font-size:12.5px;font-weight:700;color:var(--red);text-decoration:line-through;margin-bottom:4px;}
+.avoid-why{font-size:12px;font-weight:600;color:var(--muted);line-height:1.65;}
+.avoid-fix{font-size:12.5px;font-weight:600;color:var(--green);margin-top:6px;line-height:1.65;}
+
+/* Favorites empty */
+.fav-empty{text-align:center;padding:60px 20px;}
+.fav-empty-icon{font-size:36px;margin-bottom:14px;}
+.fav-empty-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.fav-empty-sub{font-size:12px;font-weight:600;color:var(--muted);line-height:1.65;}
+
+.highlight{background:rgba(240,168,48,0.25);color:var(--amber);border-radius:2px;padding:0 1px;}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px;font-weight:600;}
+
+/* Toast */
+.copy-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#0c0f14;font-family:"Mulish",sans-serif;font-size:12px;font-weight:800;padding:9px 18px;border-radius:6px;opacity:0;transition:all 0.25s;pointer-events:none;z-index:200;letter-spacing:0.02em;max-width:340px;text-align:center;line-height:1.4;}
+.copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* Footer */
+.footer{text-align:center;padding:24px 16px;display:flex;align-items:center;justify-content:center;gap:8px;border-top:1px solid var(--border);}
+.footer-logo{width:18px;height:18px;background:var(--logo-gradient);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800;color:var(--logo-text);flex-shrink:0;}
+.footer-text{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.04em;}
+
+/* Template tag */
+.tag.t-template{background:rgba(156,163,180,0.07);color:var(--muted);border-color:rgba(156,163,180,0.18);}
+
+@media(max-width:600px){
+  .hdr{padding:12px 16px;}.hdr-badge{display:none;}.fav-toggle{font-size:8px;padding:4px 8px;letter-spacing:0.06em;}
+  .search-wrap{padding:10px 16px;top:65px;}
+  .filter-panel{top:109px;}
+  .disc-bar{padding:8px 16px 4px;}.cat-bar{padding:4px 16px 8px;}
+  .content{padding:16px 16px 60px;}
+  .copy-hint{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="cp-logo">CP</div>
+  <div>
+    <div class="hdr-eyebrow">The DOR Suite</div>
+    <div class="hdr-title">Skilled Language <span>Reference</span></div>
+  </div>
+  <div class="hdr-right">
+    <button class="fav-toggle" id="favToggle" aria-label="Toggle favorites view">⭐ Favorites</button>
+    <div class="hdr-badge">Tap to Copy</div>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="search-input" id="searchInput" placeholder="Search phrases, keywords, or categories…" autocomplete="off"/>
+    <span class="search-count" id="searchCount"></span>
+    <button class="search-clear" id="searchClear" aria-label="Clear search" title="Clear">×</button>
+  </div>
+</div>
+
+<div class="filter-panel">
+  <div class="disc-bar" id="discBar">
+    <button class="disc-btn active" data-disc="all">All</button>
+    <button class="disc-btn" data-disc="pt">PT</button>
+    <button class="disc-btn" data-disc="ot">OT</button>
+    <button class="disc-btn" data-disc="st">ST</button>
+  </div>
+  <div class="cat-bar" id="catBar"></div>
+</div>
+
+<div class="content" id="content"></div>
+<div class="copy-toast" id="toast"></div>
+
+<div class="footer">
+  <div class="footer-logo">CP</div>
+  <div class="footer-text">Designed by Cliff Peters</div>
+</div>
+
+<script>
+const DATA = {categories:[
+{id:"te",name:"Therapeutic Exercise",disc:["pt","ot"],subs:[
+  {name:"Strengthening",phrases:[
+    "Completed therapeutic exercise targeting bilateral lower extremity strengthening to address functional weakness limiting safe transfers and ambulation.",
+    "Skilled therapeutic exercise performed targeting hip abductor and extensor strengthening to improve lateral stability during ambulation.",
+    "Therapeutic exercise completed with clinician providing verbal and tactile cueing for proper body mechanics during resistive lower extremity strengthening.",
+    "Completed therapeutic exercise targeting bilateral upper extremity strengthening using progressive resistance to improve functional reach and self-care performance.",
+    "Skilled intervention required to address compensatory movement patterns observed during resistive exercise, with clinician cueing provided to correct form and prevent injury.",
+    "Therapeutic exercise performed targeting core stabilization musculature to improve trunk control during dynamic seated and standing tasks.",
+    "Completed therapeutic exercise targeting ankle dorsiflexor strengthening to reduce foot drop pattern observed during gait.",
+    "Skilled therapeutic exercise completed with progressive resistance targeting quadriceps and hamstring co-contraction to improve knee stability during weight bearing.",
+    "Therapeutic exercise performed with clinician monitoring for vital sign response and exercise tolerance secondary to cardiac history.",
+    "Completed therapeutic exercise using gravity-eliminated positioning progressing to against-gravity strengthening as tolerated to address significant baseline weakness."
+  ]},
+  {name:"Range of Motion",phrases:[
+    "Skilled therapeutic exercise performed targeting active-assisted range of motion of the involved shoulder to address capsular restrictions limiting functional overhead reach.",
+    "Completed therapeutic exercise addressing bilateral lower extremity range of motion deficits contributing to shortened stride length and reduced gait safety.",
+    "Therapeutic exercise performed with clinician providing sustained end-range stretching to address hamstring tightness limiting sit to stand transfer mechanics.",
+    "Skilled intervention required to progress active-assisted range of motion to active range of motion as tissue healing and pain tolerance permitted.",
+    "Completed therapeutic exercise targeting hip flexor and extensor range of motion to improve upright posture and normalize gait pattern.",
+    "Therapeutic exercise performed addressing wrist and digit range of motion deficits to improve grasp and release for functional self-care tasks.",
+    "Skilled therapeutic exercise completed with clinician grading resistance through available range to promote active muscle engagement while respecting tissue healing constraints."
+  ]},
+  {name:"Endurance",phrases:[
+    "Completed therapeutic exercise targeting cardiovascular and muscular endurance through graded activity progression to improve tolerance for functional mobility distances.",
+    "Skilled therapeutic exercise performed with clinician monitoring heart rate, blood pressure, and perceived exertion to establish safe exercise parameters.",
+    "Therapeutic exercise completed addressing activity tolerance deficits through interval training approach with structured rest breaks as needed.",
+    "Completed therapeutic exercise targeting seated and standing endurance to improve tolerance for meal time duration and community participation.",
+    "Skilled intervention required to modify exercise intensity in response to observed fatigue patterns and vital sign changes during graded endurance training."
+  ]},
+  {name:"Weight Bearing Progression",phrases:[
+    "Completed therapeutic exercise within prescribed weight bearing restrictions with clinician providing tactile and verbal cueing to maintain appropriate loading.",
+    "Skilled therapeutic exercise performed progressing weight bearing status from toe-touch to partial as cleared by physician, with clinician monitoring for pain response.",
+    "Therapeutic exercise completed addressing progressive weight bearing through the involved lower extremity to promote bone healing and restore functional loading patterns.",
+    "Completed therapeutic exercise targeting weight bearing symmetry during bilateral stance to address compensatory patterns developed during restricted weight bearing period."
+  ]}
+]},
+{id:"gait",name:"Gait Training",disc:["pt"],subs:[
+  {name:"FWW",phrases:[
+    "Gait training performed with FWW, resident ambulating with verbal and tactile cueing for upright posture, sequenced stepping, and appropriate walker advancement.",
+    "Skilled gait training completed with FWW addressing shortened stride length and reduced heel strike through clinician-directed verbal cueing and demonstration.",
+    "Gait training performed with FWW with clinician providing tactile facilitation at the pelvis to address lateral trunk lean and improve weight shift symmetry.",
+    "Skilled gait training completed with FWW, resident requiring verbal cueing for walker placement prior to stepping to prevent forward loss of balance.",
+    "Gait training performed with FWW with clinician grading distance progression to improve functional ambulation endurance for community-level mobility within the facility.",
+    "Skilled intervention required during gait training with FWW to address festinating pattern with verbal cueing for deliberate heel-toe sequencing."
+  ]},
+  {name:"Rollator / RW",phrases:[
+    "Gait training performed with rollator, resident ambulating with verbal cueing to maintain upright posture and avoid forward trunk flexion over the device.",
+    "Skilled gait training completed with RW addressing brake management and safe turning technique to reduce fall risk during directional changes.",
+    "Gait training performed with rollator with clinician providing verbal cueing for controlled speed and appropriate braking prior to seated rest breaks.",
+    "Skilled gait training completed with RW addressing step length symmetry and appropriate device advancement during hallway ambulation.",
+    "Gait training performed with rollator with clinician providing standby assist and verbal cueing to navigate environmental obstacles including thresholds and doorways.",
+    "Skilled intervention required during rollator training to address posterior loss of balance tendency with cueing for weight distribution over base of support."
+  ]},
+  {name:"SPC / Cane",phrases:[
+    "Gait training performed with SPC, resident ambulating with verbal cueing for appropriate cane-foot timing sequence to normalize reciprocal gait pattern.",
+    "Skilled gait training completed with SPC addressing contralateral placement and weight bearing through the device to improve stability during stance phase.",
+    "Gait training performed with SPC with clinician providing verbal and tactile cueing to reduce Trendelenburg pattern during single limb stance on the involved side."
+  ]},
+  {name:"No Device / Least Restrictive",phrases:[
+    "Gait training performed without assistive device to assess readiness for device downgrade, with clinician providing standby assist and verbal cueing for safety.",
+    "Skilled gait training completed with device downgrade trial from FWW to rollator to promote least restrictive mobility and improve functional independence.",
+    "Gait training performed without device on level surfaces with clinician assessing dynamic balance, step symmetry, and safety to determine appropriateness of continued device-free ambulation."
+  ]},
+  {name:"Environmental and Advanced",phrases:[
+    "Skilled gait training performed incorporating outdoor and uneven surface ambulation to improve community-level mobility and confidence with varied terrain.",
+    "Gait training completed incorporating ramp negotiation with clinician cueing for appropriate body mechanics and device management during incline and decline walking.",
+    "Skilled gait training performed addressing stair negotiation with step-over-step pattern and appropriate handrail use with clinician standby assist for safety.",
+    "Gait training completed incorporating dual-task conditions to assess and improve cognitive-motor integration during functional ambulation.",
+    "Skilled gait training performed incorporating obstacle negotiation to improve adaptive stepping responses and reduce trip and fall risk in the facility environment."
+  ]}
+]},
+{id:"transfers",name:"Transfers",disc:["pt","ot"],subs:[
+  {name:"Sit to Stand",phrases:[
+    "Transfer training performed addressing sit to stand technique with clinician providing tactile cueing at the knees and verbal cueing for forward weight shift to improve independence.",
+    "Skilled transfer training completed for sit to stand from standard and low surface heights to address functional limitations for toilet and chair transfers.",
+    "Transfer training performed with clinician grading sit to stand assist level from moderate to minimal as resident demonstrated improved lower extremity force production.",
+    "Skilled intervention required during sit to stand training to correct asymmetric weight bearing pattern and reduce upper extremity dependence during standing transitions."
+  ]},
+  {name:"Bed Mobility",phrases:[
+    "Transfer training performed addressing supine to sit technique with clinician providing verbal cueing for log roll sequencing and upper extremity use for safe transitioning.",
+    "Skilled bed mobility training completed addressing scooting, rolling, and supine to sit with clinician cueing for energy conservation techniques secondary to activity tolerance deficits.",
+    "Transfer training performed for bed mobility addressing safe repositioning technique to reduce fall risk during nighttime transitions."
+  ]},
+  {name:"Toilet Transfer",phrases:[
+    "Transfer training performed addressing toilet transfer technique with clinician providing verbal and tactile cueing for clothing management and safe sit to stand from lowered surface.",
+    "Skilled toilet transfer training completed to improve safety and reduce assist level required for this high-frequency ADL task.",
+    "Transfer training performed incorporating grab bar use and sequenced technique for toilet transfers to promote independence and reduce caregiver burden."
+  ]},
+  {name:"Shower and Tub",phrases:[
+    "Transfer training performed addressing tub transfer with step-over technique, clinician providing standby assist and verbal cueing for hand placement and weight shift sequencing.",
+    "Skilled shower transfer training completed incorporating shower chair positioning and safe seated bathing technique to reduce fall risk in wet environment.",
+    "Transfer training performed addressing tub bench transfer with clinician cueing for appropriate hand placement, controlled lowering, and leg clearance over tub wall."
+  ]},
+  {name:"Car Transfer",phrases:[
+    "Transfer training performed addressing car transfer technique including controlled lowering, trunk rotation, and lower extremity management to improve community mobility readiness.",
+    "Skilled car transfer training completed with clinician cueing for seat height accommodation and safe entry and exit sequencing."
+  ]},
+  {name:"Floor Transfer",phrases:[
+    "Transfer training performed addressing floor to stand recovery technique to improve resident safety and confidence in the event of a fall.",
+    "Skilled floor transfer training completed with clinician instruction in sequenced technique using available furniture for support during recovery from floor level.",
+    "Transfer training performed for floor recovery incorporating backward chaining approach to build confidence and motor planning for independent completion."
+  ]}
+]},
+{id:"neuro",name:"Neuromuscular Re-ed",disc:["pt","ot"],subs:[
+  {name:"Balance Retraining",phrases:[
+    "Neuromuscular re-education performed targeting postural control through graded balance challenges to improve automatic righting responses and reduce fall risk.",
+    "Skilled neuromuscular re-education completed addressing impaired anticipatory postural adjustments during dynamic standing tasks requiring clinician facilitation.",
+    "Neuromuscular re-education performed with perturbation training to improve reactive stepping strategies and protective extension responses.",
+    "Skilled intervention required to retrain weight shifting patterns over base of support to address asymmetric postural alignment contributing to loss of balance episodes.",
+    "Completed therapeutic exercise targeting static and dynamic standing balance with clinician providing tactile facilitation at the pelvis to promote midline orientation.",
+    "Skilled therapeutic exercise performed incorporating single limb stance progressions to address balance deficits identified during functional mobility assessment.",
+    "Therapeutic exercise completed targeting reactive balance strategies with clinician-applied perturbations to improve automatic postural responses during standing tasks.",
+    "Completed therapeutic exercise addressing dynamic weight shifting in standing to improve anticipatory balance control during reaching and turning tasks.",
+    "Skilled intervention required to address balance deficits through graded tandem stance and modified Romberg progressions with clinician standby for safety.",
+    "Therapeutic exercise performed incorporating compliant surface standing to challenge somatosensory contributions to balance and improve postural adaptation.",
+    "Completed therapeutic exercise targeting lateral weight shifting over base of support to address asymmetry contributing to fall risk.",
+    "Skilled therapeutic exercise performed with eyes-open progressing to eyes-closed conditions to challenge vestibular and proprioceptive balance contributions."
+  ]},
+  {name:"Proprioception",phrases:[
+    "Neuromuscular re-education performed targeting proprioceptive awareness through joint approximation and weight bearing activities to improve lower extremity position sense.",
+    "Skilled neuromuscular re-education completed addressing diminished proprioception through graded surface changes and varied stance positions requiring clinician facilitation for safety.",
+    "Neuromuscular re-education performed incorporating eyes-closed balance challenges to promote proprioceptive reliance for postural stability."
+  ]},
+  {name:"Vestibular",phrases:[
+    "Neuromuscular re-education performed addressing vestibular hypofunction through graded head movement exercises with clinician monitoring for symptom provocation.",
+    "Skilled vestibular rehabilitation completed incorporating gaze stabilization exercises to reduce visual blurring during head movement and improve dynamic visual acuity.",
+    "Neuromuscular re-education performed targeting habituation exercises for position-provoked dizziness with clinician grading stimulus intensity based on symptom response."
+  ]},
+  {name:"Weight Shifting and Postural Control",phrases:[
+    "Neuromuscular re-education performed targeting multidirectional weight shifting in standing to improve center of mass control over base of support.",
+    "Skilled neuromuscular re-education completed addressing trunk postural control deficits during dynamic reaching tasks requiring clinician facilitation for midline orientation.",
+    "Neuromuscular re-education performed incorporating rhythmic weight shifting to improve anticipatory postural control during transitional movements.",
+    "Skilled intervention required to address postural asymmetry through tactile and proprioceptive facilitation at the trunk to improve alignment during functional tasks."
+  ]},
+  {name:"Motor Planning and Coordination",phrases:[
+    "Neuromuscular re-education performed targeting motor sequencing for multi-step functional tasks requiring clinician verbal cueing to facilitate appropriate movement planning.",
+    "Skilled neuromuscular re-education completed addressing upper extremity coordination deficits through graded reaching and manipulation tasks to improve self-care performance.",
+    "Neuromuscular re-education performed incorporating bilateral coordination activities to improve timing and sequencing for functional task completion."
+  ]}
+]},
+{id:"ta",name:"Therapeutic Activities",disc:["pt","ot"],subs:[
+  {name:"ADL Retraining",phrases:[
+    "Therapeutic activity performed addressing upper and lower body dressing technique with clinician providing verbal cueing for sequencing and energy conservation.",
+    "Skilled therapeutic activity completed targeting grooming and hygiene task performance with clinician modifying approach to address upper extremity limitations.",
+    "Therapeutic activity performed incorporating simulated meal preparation tasks to improve standing tolerance, bilateral coordination, and safety awareness in kitchen environment.",
+    "Skilled therapeutic activity completed addressing functional reach patterns during simulated closet and cabinet access to improve independence in home management tasks."
+  ]},
+  {name:"Functional Reaching and Object Manipulation",phrases:[
+    "Therapeutic activity performed targeting functional reaching patterns at varied heights to improve independence in retrieving items from shelves and countertops.",
+    "Skilled therapeutic activity completed addressing object manipulation during simulated household tasks to improve grasp, release, and bilateral coordination.",
+    "Therapeutic activity performed incorporating weighted object management to improve grip strength and carry capacity for functional independence."
+  ]},
+  {name:"Functional Mobility Tasks",phrases:[
+    "Therapeutic activity performed incorporating sit to stand repetitions from varied surface heights to improve transfer performance across daily functional contexts.",
+    "Skilled therapeutic activity completed addressing functional ambulation with object carry to improve dynamic balance during instrumental ADL tasks.",
+    "Therapeutic activity performed targeting bed making task to address functional reaching, standing balance, and bilateral upper extremity coordination in context of daily routine."
+  ]}
+]},
+{id:"manual",name:"Manual Therapy",disc:["pt","ot"],subs:[
+  {name:"Soft Tissue Mobilization",phrases:[
+    "Manual therapy performed with soft tissue mobilization to the involved musculature to address myofascial restrictions limiting functional range of motion.",
+    "Skilled soft tissue mobilization completed targeting trigger point release in the cervical and upper trapezius region to reduce pain and improve postural alignment.",
+    "Manual therapy performed with clinician applying graded pressure to adhered soft tissue to improve tissue extensibility and reduce pain with functional movement.",
+    "Skilled soft tissue mobilization performed to address scar tissue adhesion limiting joint excursion and functional use of the involved extremity."
+  ]},
+  {name:"Joint Mobilization",phrases:[
+    "Manual therapy performed with joint mobilization to the involved joint using grade II oscillations to address capsular restriction and improve available range of motion.",
+    "Skilled joint mobilization completed at the glenohumeral joint to address inferior capsular tightness limiting overhead functional reach.",
+    "Manual therapy performed with graded joint mobilization to restore accessory motion and reduce pain with active movement at end range.",
+    "Skilled joint mobilization performed at the talocrural joint to improve dorsiflexion range required for normalized gait mechanics."
+  ]},
+  {name:"PROM and Stretching",phrases:[
+    "Manual therapy performed with passive range of motion and sustained stretching to the involved extremity to address contracture risk and maintain available joint excursion.",
+    "Skilled passive range of motion completed with clinician monitoring tissue response and grading stretch intensity based on end-feel assessment.",
+    "Manual therapy performed with prolonged low-load stretching to address established soft tissue shortening limiting functional positioning."
+  ]}
+]},
+{id:"modalities",name:"Modalities",disc:["pt"],subs:[
+  {name:"Thermal Agents",phrases:[
+    "Moist heat applied to the involved region prior to therapeutic intervention to improve tissue extensibility and reduce pain for improved exercise tolerance.",
+    "Cryotherapy applied to the involved area following therapeutic exercise to manage inflammatory response and reduce post-treatment soreness.",
+    "Skilled clinical judgment required to determine appropriate thermal agent parameters based on tissue healing stage, sensation assessment, and treatment goals."
+  ]},
+  {name:"Electrical Stimulation",phrases:[
+    "Neuromuscular electrical stimulation applied to the involved musculature to facilitate muscle re-education and improve volitional contraction strength.",
+    "TENS applied to the involved area for pain management to improve tolerance for therapeutic exercise and functional mobility training.",
+    "Skilled application of electrical stimulation with parameter selection based on clinical assessment of treatment goals, tissue response, and patient tolerance."
+  ]},
+  {name:"Ultrasound",phrases:[
+    "Therapeutic ultrasound applied to the involved region using parameters selected based on tissue depth, healing stage, and treatment objectives.",
+    "Skilled ultrasound application completed to promote tissue healing and improve extensibility of deep soft tissue structures limiting functional movement."
+  ]}
+]},
+{id:"cueing",name:"Cueing Language",disc:["pt","ot","st"],subs:[
+  {name:"Verbal Cues",phrases:[
+    "Verbal cueing provided for safety awareness during standing tasks including reminders to lock wheelchair brakes prior to transfer initiation.",
+    "Verbal cueing provided for step sequencing and walker advancement timing to improve gait pattern consistency and safety.",
+    "Verbal cueing required for task initiation and multi-step activity sequencing secondary to cognitive processing deficits impacting functional performance.",
+    "Verbal cueing provided for pacing and energy conservation during ambulation to manage activity tolerance limitations.",
+    "Verbal cueing provided for upright posture and chin tuck positioning during ambulation to reduce forward head posture and improve balance."
+  ]},
+  {name:"Tactile Cues",phrases:[
+    "Tactile cueing provided at the pelvis to facilitate appropriate weight shift during gait and improve lateral stability.",
+    "Tactile facilitation provided at the involved extremity to promote appropriate muscle activation and movement patterning during functional tasks.",
+    "Tactile cueing provided at the trunk to promote midline orientation and reduce lateral lean during seated and standing activities.",
+    "Tactile cueing provided at the knee to prevent hyperextension during stance phase of gait."
+  ]},
+  {name:"Visual Cues",phrases:[
+    "Visual cueing provided using floor targets to improve step length consistency and normalize cadence during gait training.",
+    "Visual demonstration provided for exercise technique and transfer sequencing to supplement verbal instruction and improve motor learning.",
+    "Visual cues provided for spatial orientation during navigation of the facility environment to reduce collision risk and improve safety."
+  ]},
+  {name:"Proprioceptive Cues",phrases:[
+    "Proprioceptive facilitation provided through joint approximation to improve awareness of extremity position during weight bearing tasks.",
+    "Proprioceptive cueing provided through manual resistance to promote co-contraction and joint stability during functional activities.",
+    "Proprioceptive facilitation provided through tapping technique to improve muscle recruitment timing during functional movement."
+  ]},
+  {name:"Combination Cueing",phrases:[
+    "Multi-modal cueing provided including verbal, tactile, and visual cues to address motor planning deficits impacting functional task performance. Frequency and type of cueing adjusted based on resident response to promote motor learning.",
+    "Verbal and tactile cueing provided simultaneously during transfer training to improve sequencing and weight shift coordination. Clinician graded cueing intensity based on resident performance across trials.",
+    "Combined verbal and proprioceptive cueing provided to improve awareness of body position and movement quality during therapeutic exercise. Cueing frequency reduced across session as resident demonstrated improved independent performance."
+  ]}
+]},
+{id:"mednec",name:"Medical Necessity",disc:["pt","ot","st"],subs:[
+  {name:"Skilled vs Restorative",phrases:[
+    "Skilled clinician required to assess and modify treatment approach in response to fluctuating presentation and variable pain levels impacting functional performance.",
+    "Skilled intervention required due to complexity of movement dysfunction that exceeds the scope of a restorative program and requires ongoing clinical assessment and treatment modification.",
+    "The skilled eye and clinical judgment of a licensed therapist was required to identify and address compensatory movement patterns that would not be recognized or corrected in a restorative program.",
+    "Skilled clinician required to progress treatment parameters based on objective reassessment data and clinical reasoning to optimize functional outcomes.",
+    "Restorative programming is not appropriate at this time due to the resident's fluctuating medical status, cognitive processing deficits, and need for ongoing safety assessment by a licensed clinician.",
+    "Skilled intervention required to establish a safe and effective home exercise program with appropriate modifications based on the resident's changing functional presentation."
+  ]},
+  {name:"Safety Rationale",phrases:[
+    "Skilled intervention required secondary to high fall risk necessitating continuous clinician assessment of balance and postural control during dynamic mobility tasks.",
+    "The resident's safety during functional mobility requires the ongoing clinical judgment of a licensed therapist to assess environmental hazards and modify approach accordingly.",
+    "Skilled clinician required to assess and manage fall risk factors including medication effects, orthostatic changes, and impaired safety awareness during functional mobility."
+  ]},
+  {name:"Complexity Justification",phrases:[
+    "The complexity of the resident's presentation including multiple co-morbidities and medication effects on functional performance requires the ongoing assessment and clinical reasoning of a licensed therapist.",
+    "Skilled intervention required due to the interplay of cognitive, neuromuscular, and musculoskeletal impairments requiring integrated treatment planning that exceeds restorative aide scope.",
+    "Clinical judgment required to balance competing treatment priorities including pain management, strengthening, and balance retraining within a single treatment session."
+  ]}
+]},
+{id:"eval",name:"Evaluation and Reassessment",disc:["pt","ot","st"],subs:[
+  {name:"Initial Evaluation Justification",phrases:[
+    "Skilled evaluation completed to establish baseline functional status, identify treatment priorities, and develop an individualized plan of care to address identified deficits.",
+    "Initial evaluation performed by licensed therapist to assess functional mobility, strength, balance, and safety awareness to determine appropriateness of skilled therapy services.",
+    "Skilled evaluation completed with standardized assessment tools administered to establish objective baseline measures to guide treatment planning and track functional progress.",
+    "Initial evaluation performed to identify impairments contributing to functional limitations and establish short and long-term goals to guide the plan of care.",
+    "Skilled evaluation required to assess complexity of the resident's functional presentation and determine appropriate intensity, frequency, and duration of skilled therapy services."
+  ]},
+  {name:"30-Day Reassessment",phrases:[
+    "Skilled reassessment completed to evaluate progress toward established goals, update objective measures, and modify the plan of care based on current functional status.",
+    "Thirty-day reassessment performed with objective comparison to baseline measures demonstrating functional improvement supporting continued skilled therapy services.",
+    "Skilled reassessment completed to determine appropriateness of goal advancement, treatment parameter progression, or modification of the plan of care based on current presentation.",
+    "Reassessment findings support continued skilled therapy services as the resident continues to demonstrate measurable functional progress and has not yet reached stated goals.",
+    "Skilled reassessment completed with updated standardized measures indicating functional improvement and ongoing potential to benefit from skilled therapeutic intervention."
+  ]},
+  {name:"Progress Note Openers",phrases:[
+    "Skilled therapy provided this session with treatment focused on the following areas as indicated by ongoing functional assessment and established plan of care.",
+    "Resident presented for skilled therapy this session demonstrating the following clinical presentation relative to prior session.",
+    "Skilled intervention provided this session targeting identified functional deficits as outlined in the current plan of care with the following clinical observations noted.",
+    "Treatment session initiated following brief clinical assessment of resident's current functional status, pain level, and tolerance to guide session focus and intensity.",
+    "Resident seen for skilled therapy this session with the following functional observations and intervention summary documented for the medical record."
+  ]}
+]},
+{id:"goals",name:"Goal Writing",disc:["pt","ot","st"],subs:[
+  {name:"Mobility Goals",phrases:[
+    "Resident will ambulate [distance] with [device] and [assist level] verbal cueing within [timeframe] to improve functional mobility and reduce fall risk.",
+    "Resident will complete sit to stand transfers from [surface] with [assist level] and [cueing level] within [timeframe] to improve independence with daily mobility.",
+    "Resident will negotiate [environmental feature] with [device] and [assist level] within [timeframe] to support safe community-level mobility.",
+    "Resident will demonstrate improved ambulation endurance, tolerating [distance] with [number] or fewer rest breaks within [timeframe] to support participation in facility programming."
+  ]},
+  {name:"Strength and ROM Goals",phrases:[
+    "Resident will demonstrate [muscle group] strength of [grade] on manual muscle testing within [timeframe] to support [functional task].",
+    "Resident will achieve [joint] range of motion of [degrees] to support [functional task] within [timeframe].",
+    "Resident will complete [exercise] for [reps/sets] with [resistance] and [assist level] within [timeframe] to support [functional outcome]."
+  ]},
+  {name:"ADL and Self-Care Goals",phrases:[
+    "Resident will complete upper body dressing with [assist level] and [cueing level] within [timeframe] to improve independence with daily self-care routine.",
+    "Resident will perform bathing and hygiene tasks with [assist level] using [adaptive equipment] within [timeframe] to improve safety and reduce caregiver burden.",
+    "Resident will demonstrate competency with home exercise program performing all exercises with [cueing level] within [timeframe] to maintain functional gains after discharge."
+  ]},
+  {name:"Communication and Cognitive Goals",phrases:[
+    "Resident will follow [number]-step directions with [cueing level] in [number] out of [number] trials within [timeframe] to improve safety and participation in therapy.",
+    "Resident will demonstrate safe swallow function with [diet texture] and [liquid consistency] as evidenced by [criterion] within [timeframe].",
+    "Resident will express basic needs and preferences with [assist level] in functional communication exchanges within [timeframe] to improve quality of life and care participation."
+  ]}
+]},
+{id:"progress",name:"Progress and Complexity",disc:["pt","ot","st"],subs:[
+  {name:"Upgrade Language",phrases:[
+    "Resident demonstrating measurable improvement with assist level reduced from moderate to minimal for the trained task, indicating positive response to skilled intervention.",
+    "Treatment parameters progressed this session based on resident's improved tolerance and performance, including increased repetitions, resistance, and task complexity.",
+    "Functional gains observed with increased ambulation distance and reduced rest break frequency, supporting continued skilled intervention to maximize outcomes.",
+    "Resident demonstrating improved motor learning with reduced cueing frequency required across treatment sessions for the targeted functional task.",
+    "Objective improvement noted with TUG score improving from baseline, indicating meaningful functional change in dynamic mobility and fall risk."
+  ]},
+  {name:"Downgrade Language",phrases:[
+    "Resident presenting with increased difficulty this session secondary to pain exacerbation, requiring clinician to modify treatment approach and reduce activity intensity.",
+    "Treatment approach modified this session due to observed decline in balance performance, requiring skilled reassessment of contributing factors and adjusted intervention plan.",
+    "Increased cueing frequency required this session compared to prior, likely secondary to medication change impacting cognitive processing and motor planning."
+  ]},
+  {name:"Treatment Modification",phrases:[
+    "Treatment plan modified based on skilled reassessment findings to address newly identified deficit in dynamic balance not present at initial evaluation.",
+    "Skilled clinical judgment applied to modify exercise parameters based on resident's variable pain presentation and changing tolerance across treatment sessions.",
+    "Treatment approach adapted this session to incorporate compensatory strategies due to limited recovery potential for the involved impairment while maintaining focus on functional independence.",
+    "Intervention modified to address change in functional status following recent hospitalization, requiring re-establishment of baseline and updated treatment goals."
+  ]},
+  {name:"Plateau Justification",phrases:[
+    "Resident approaching functional plateau for ambulation distance with current device; skilled assessment completed to determine appropriateness of device change or discharge planning.",
+    "Skilled clinician assessment indicates resident has achieved maximum benefit from current treatment approach; treatment plan modified to target remaining functional deficits.",
+    "Resident demonstrating plateau in one treatment area while continuing to make measurable progress in other targeted functional domains; skilled intervention continues to be warranted."
+  ]}
+]},
+{id:"discharge",name:"Discharge Justification",disc:["pt","ot","st"],subs:[
+  {name:"Goals Met",phrases:[
+    "Resident has met all established short-term and long-term therapy goals with demonstrated ability to maintain functional gains independently.",
+    "All treatment goals achieved with resident demonstrating safe and independent performance of targeted functional tasks at a level consistent with prior level of function.",
+    "Resident has achieved functional goals established at evaluation with measurable improvement in targeted areas supporting safe continued aging in place."
+  ]},
+  {name:"Plateau",phrases:[
+    "Resident has reached a functional plateau as evidenced by no measurable change in objective outcomes over the past two treatment sessions despite skilled intervention modification.",
+    "Clinical assessment indicates the resident has achieved maximum functional benefit from the current skilled therapy plan of care.",
+    "Resident's functional performance has stabilized at a level that can be maintained through a structured home exercise program and restorative or wellness programming."
+  ]},
+  {name:"Insurance Preservation",phrases:[
+    "Skilled therapy services being discontinued at this time to preserve remaining approved visits for potential future functional decline or change in medical status later in the benefit period.",
+    "Discharge recommended at this time with visits preserved under the current authorization to allow resumption of skilled services if a change in condition warrants re-evaluation.",
+    "Current therapy goals achieved; remaining approved visits will be preserved to provide a safety net for future skilled therapy needs should a change in functional status occur."
+  ]},
+  {name:"HEP Competency",phrases:[
+    "Resident has demonstrated competency with the established home exercise program including correct technique, appropriate dosage, and understanding of safety precautions.",
+    "Home exercise program provided with resident demonstrating independent performance of all exercises with proper form prior to discharge from skilled services.",
+    "Written and verbal home exercise program instruction completed with resident and care staff verbalizing understanding of exercise technique, frequency, and safety considerations."
+  ]}
+]},
+{id:"pt",name:"PT-Specific",disc:["pt"],subs:[
+  {name:"Post-Operative Orthopedic",phrases:[
+    "Skilled physical therapy intervention performed addressing post-operative rehabilitation following total hip arthroplasty with adherence to posterior hip precautions throughout all functional mobility tasks.",
+    "Physical therapy intervention completed targeting post-operative knee rehabilitation following total knee arthroplasty with progressive range of motion and weight bearing advancement per surgical protocol.",
+    "Skilled intervention required to monitor surgical wound status, vital sign response, and pain levels during post-operative mobility training to ensure safe progression within physician-established parameters.",
+    "Physical therapy performed addressing post-operative spinal precautions during functional mobility training with clinician cueing to maintain appropriate body mechanics and prevent complication.",
+    "Skilled physical therapy intervention completed addressing post-operative shoulder rehabilitation with strict adherence to sling use protocol and passive range of motion restrictions."
+  ]},
+  {name:"Prosthetics and Orthotics",phrases:[
+    "Skilled physical therapy intervention performed with prosthetic limb donning and doffing training to improve resident independence and reduce caregiver burden with lower extremity prosthesis management.",
+    "Physical therapy intervention completed addressing gait training with lower extremity prosthesis, with clinician providing verbal and tactile cueing for weight acceptance and push-off mechanics.",
+    "Skilled intervention required to assess and address skin integrity at the residual limb and prosthetic socket interface, with modification of weight bearing and activity parameters based on findings.",
+    "Physical therapy performed addressing ankle-foot orthosis fitting, donning, and functional gait training to improve ambulation safety and reduce fall risk secondary to foot drop."
+  ]},
+  {name:"Wound Care",phrases:[
+    "Skilled physical therapy intervention performed with wound assessment and debridement of the involved lower extremity wound using appropriate technique per wound care protocol.",
+    "Physical therapy wound care completed with application of prescribed dressing materials and documentation of wound dimensions, tissue quality, and drainage characteristics.",
+    "Skilled intervention required to assess wound healing progression and modify wound care parameters based on tissue response and clinical presentation.",
+    "Physical therapy performed addressing edema management through compression wrapping and positioning to support wound healing and reduce peripheral vascular compromise."
+  ]},
+  {name:"Fall Prevention",phrases:[
+    "Skilled physical therapy intervention performed completing formal fall risk assessment using standardized tools to identify modifiable risk factors and guide targeted intervention.",
+    "Physical therapy intervention completed addressing environmental modification recommendations and safe mobility strategy training to reduce fall risk in the resident's living environment.",
+    "Skilled intervention performed targeting dynamic balance and reactive postural control to improve the resident's ability to recover from unexpected perturbations and reduce fall frequency.",
+    "Physical therapy completed addressing fear of falling through graded exposure to challenging mobility tasks with clinician support to improve confidence and activity participation."
+  ]}
+]},
+{id:"ot",name:"OT-Specific",disc:["ot"],subs:[
+  {name:"Fine Motor and Hand Function",phrases:[
+    "Skilled occupational therapy intervention performed targeting fine motor coordination and in-hand manipulation to improve independence with fastener management and self-feeding.",
+    "Therapeutic activity completed addressing pinch and grip strength deficits through graded prehension tasks to improve functional grasp for ADL performance.",
+    "Skilled intervention required to address decreased hand dexterity impacting medication management, writing, and small object manipulation for daily functional tasks.",
+    "Occupational therapy intervention performed targeting thumb opposition and digit isolation to improve functional performance with buttons, zippers, and utensil management."
+  ]},
+  {name:"UE Strengthening and Functional Use",phrases:[
+    "Skilled occupational therapy intervention performed targeting upper extremity strengthening through functional reaching and lifting tasks at varied heights to improve ADL performance.",
+    "Therapeutic exercise completed targeting scapular stabilization and rotator cuff strengthening to improve overhead reach for dressing and grooming tasks.",
+    "Skilled intervention required to address upper extremity weakness limiting safe and independent performance of bathing, dressing, and hygiene tasks."
+  ]},
+  {name:"Self-Care Retraining",phrases:[
+    "Skilled occupational therapy intervention performed retraining upper and lower body dressing technique with compensatory strategies to address range of motion and strength limitations.",
+    "Therapeutic activity completed addressing bathing task performance with clinician instruction in adaptive technique and equipment use to improve safety and independence.",
+    "Skilled intervention required to retrain grooming and hygiene task sequencing secondary to cognitive processing deficits impacting safe and complete self-care performance.",
+    "Occupational therapy intervention performed addressing feeding and meal setup with adaptive equipment training to improve independence in the dining environment."
+  ]},
+  {name:"Cognitive-Perceptual",phrases:[
+    "Skilled occupational therapy intervention performed addressing visual perceptual deficits impacting safe navigation, object location, and functional task completion.",
+    "Therapeutic activity completed targeting executive function skills including sequencing, problem-solving, and safety judgment during simulated functional tasks.",
+    "Skilled intervention required to address impaired attention and divided attention deficits impacting safe performance of multi-step ADL tasks.",
+    "Occupational therapy intervention performed targeting cognitive strategies to compensate for short-term memory deficits impacting medication management and daily routine adherence."
+  ]},
+  {name:"Home Safety and Adaptive Equipment",phrases:[
+    "Skilled occupational therapy intervention performed assessing and recommending adaptive equipment to improve independence and safety with self-care and functional mobility tasks.",
+    "Adaptive equipment training completed with instruction in proper use of long-handled reacher, sock aid, and dressing stick to compensate for lower extremity range of motion limitations.",
+    "Skilled home safety assessment completed with recommendations for environmental modifications to reduce fall risk and improve accessibility for safe aging in place.",
+    "Occupational therapy intervention performed training resident in energy conservation and work simplification techniques to manage activity tolerance limitations during daily routines."
+  ]}
+]},
+{id:"st",name:"ST-Specific",disc:["st"],subs:[
+  {name:"Dysphagia",phrases:[
+    "Skilled speech-language pathology intervention performed addressing oropharyngeal dysphagia with targeted exercises to improve lingual strength and coordination for safe bolus management.",
+    "Skilled intervention required to assess and modify diet texture and liquid consistency based on clinical swallow evaluation findings to reduce aspiration risk.",
+    "Speech therapy intervention performed targeting supraglottic swallow technique to improve airway protection during oral intake.",
+    "Skilled intervention completed addressing reduced pharyngeal constriction contributing to post-swallow residue and increased aspiration risk during meals.",
+    "Speech therapy intervention performed with clinician monitoring swallow function during meal observation to assess effectiveness of compensatory strategies and current diet level.",
+    "Skilled intervention required to train resident and care staff in safe swallowing strategies including pacing, bolus size modification, and appropriate positioning during oral intake."
+  ]},
+  {name:"Cognitive-Linguistic",phrases:[
+    "Skilled speech-language pathology intervention performed addressing word retrieval deficits through semantic feature analysis and phonemic cueing to improve functional communication.",
+    "Speech therapy intervention completed targeting auditory comprehension through graded complexity tasks to improve ability to follow multi-step directions for ADL performance.",
+    "Skilled intervention required to address impaired reading comprehension impacting ability to manage written information including medication labels and facility communications.",
+    "Speech therapy intervention performed targeting cognitive-linguistic organization through structured tasks to improve sequencing and problem-solving for daily functional needs.",
+    "Skilled intervention completed addressing impaired short-term memory through strategy training including use of external aids and compensatory techniques to improve functional independence.",
+    "Speech therapy intervention performed targeting written expression deficits to improve ability to communicate needs and manage written functional tasks."
+  ]},
+  {name:"Voice and Fluency",phrases:[
+    "Skilled speech-language pathology intervention performed addressing reduced vocal intensity through vocal function exercises to improve functional communication with care staff and peers.",
+    "Speech therapy intervention completed targeting breath support and phonatory control to improve voice projection and reduce vocal fatigue during conversational exchanges.",
+    "Skilled intervention required to address voice quality changes impacting functional communication and social participation in the dining and community environments.",
+    "Speech therapy intervention performed addressing fluency disruptions through rate control strategies to improve communication effectiveness during functional exchanges."
+  ]},
+  {name:"Diet Modification Rationale",phrases:[
+    "Diet texture modified based on clinical swallow evaluation findings indicating reduced oral control and delayed pharyngeal initiation presenting aspiration risk with regular consistency.",
+    "Liquid consistency modified to nectar-thick based on clinical assessment of swallow timing and observed signs of penetration with thin liquids during meal observation.",
+    "Skilled assessment supports advancement of diet texture based on improved swallow function observed across multiple treatment sessions with no clinical signs of aspiration.",
+    "Current modified diet maintained based on reassessment findings; resident continues to demonstrate swallow deficits that contraindicate advancement at this time."
+  ]},
+  {name:"Pragmatics and Social Communication",phrases:[
+    "Skilled speech-language pathology intervention performed addressing pragmatic language deficits including topic maintenance, turn-taking, and appropriate social interaction to improve participation.",
+    "Speech therapy intervention completed targeting functional communication strategies to improve ability to express needs, wants, and preferences to care staff.",
+    "Skilled intervention required to address reduced initiation and impaired social communication skills impacting quality of life and participation in facility programming."
+  ]}
+]},
+{id:"avoid",name:"Avoid List",disc:["pt","ot","st"],subs:[
+  {name:"Weak Phrases to Eliminate",phrases:[
+    {bad:"Resident tolerated treatment well.",why:"Passive language that does not demonstrate skilled intervention, clinical judgment, or functional relevance. Tolerance is not an outcome.",fix:"Replace with specific functional observation: 'Resident demonstrated improved standing tolerance with reduced rest break frequency compared to prior session.'"},
+    {bad:"Continue with current plan of care.",why:"Does not demonstrate clinical reasoning or justify ongoing skilled need. Reads as maintenance.",fix:"Replace with: 'Plan of care to continue with progression of exercise parameters and advancement of functional mobility goals as supported by objective improvement.'"},
+    {bad:"Resident participated in therapy.",why:"Participation is expected and not a skilled observation. Does not differentiate skilled care from restorative.",fix:"Replace with specific intervention language: 'Resident completed therapeutic exercise targeting bilateral LE strengthening with clinician cueing for form correction.'"},
+    {bad:"Resident did well today.",why:"Subjective and non-specific. Not audit defensible. Does not describe what was done or what was observed.",fix:"Replace with measurable observation: 'Resident demonstrated improved transfer independence with reduced verbal cueing required compared to prior session.'"},
+    {bad:"Will continue to monitor.",why:"Monitoring alone is not a skilled service. Does not describe what will be progressed or modified.",fix:"Replace with: 'Skilled reassessment to be completed next session to determine appropriateness of parameter progression based on objective response.'"},
+    {bad:"Resident was compliant with exercises.",why:"Compliance is not a clinical outcome. Does not address skill of service or functional change.",fix:"Replace with: 'Resident demonstrated correct technique with established HEP exercises with minimal verbal cueing for dosage adherence.'"},
+    {bad:"Therapy provided as ordered.",why:"This is a billing phrase, not a clinical statement. Adds no value to the treatment record.",fix:"Remove entirely. Every note should stand on its clinical description of what was done and why."},
+    {bad:"Resident is making progress.",why:"Vague and not measurable. Does not specify what area is improving or by how much.",fix:"Replace with specific metric: 'Resident demonstrating measurable improvement with ambulation distance increased from 50 feet to 120 feet over the past two weeks.'"},
+    {bad:"Resident requires skilled therapy.",why:"Circular reasoning. Stating that skilled therapy is needed does not explain why it is needed.",fix:"Replace with: 'Skilled intervention required due to complexity of balance deficits and high fall risk necessitating ongoing clinician assessment and treatment modification.'"},
+    {bad:"Patient seen for 30 minutes for skilled therapy.",why:"Time and the word skilled alone do not justify medical necessity. The note must describe what happened during that time.",fix:"Remove and replace with detailed intervention description including what was done, how it was done, what cueing was provided, and what was observed."}
+  ]}
+]}
+]};
+
+// State
+let activeDisc="all", activeCat="all", searchTerm="", showFavs=false;
+
+// Safe localStorage
+function loadFavs(){
+  try{return JSON.parse(localStorage.getItem('slr-favs')||'[]');}
+  catch(e){return [];}
+}
+function saveFavs(){
+  try{localStorage.setItem('slr-favs',JSON.stringify(favorites));}
+  catch(e){}
+}
+let favorites=loadFavs();
+
+function isFav(t){return favorites.includes(t);}
+function toggleFav(t,e){
+  e.stopPropagation();
+  favorites=isFav(t)?favorites.filter(f=>f!==t):[...favorites,t];
+  saveFavs();render();
+}
+function toggleFavView(){
+  showFavs=!showFavs;
+  document.getElementById('favToggle').classList.toggle('active',showFavs);
+  render();
+}
+
+// Helpers
+function isTemplate(p){return /\[.+?\]/.test(p);}
+function getVisibleCats(){return DATA.categories.filter(c=>activeDisc==="all"||c.disc.includes(activeDisc));}
+function getFilteredCats(){return getVisibleCats().filter(c=>activeCat==="all"||c.id===activeCat);}
+function matchesSearch(t){return !searchTerm||t.toLowerCase().includes(searchTerm.toLowerCase());}
+function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function hi(t){
+  if(!searchTerm)return t;
+  return t.replace(new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),'<span class="highlight">$1</span>');
+}
+
+// Cat bar
+function buildCatBar(){
+  const bar=document.getElementById('catBar');
+  let html=`<button class="cat-btn${activeCat==='all'?' active':''}" data-cat="all">All</button>`;
+  getVisibleCats().forEach(c=>{html+=`<button class="cat-btn${activeCat===c.id?' active':''}" data-cat="${c.id}">${c.name}</button>`;});
+  bar.innerHTML=html;
+  bar.querySelectorAll('.cat-btn').forEach(btn=>btn.addEventListener('click',()=>{activeCat=btn.dataset.cat;buildCatBar();render();}));
+}
+
+// Phrase card
+function phraseCard(p,catName,subName,disc){
+  const favd=isFav(p);
+  const tmpl=isTemplate(p);
+  const discTags=disc?disc.map(d=>`<span class="tag t-green">${d.toUpperCase()}</span>`).join(''):'';
+  const catTag=catName?`<span class="tag">${catName}</span>`:'';
+  const subTag=subName?`<span class="tag t-amber">${subName}</span>`:'';
+  const tmplTag=tmpl?`<span class="tag t-template">Fill in blanks</span>`:'';
+  return `<div class="phrase-card${favd?' favorited':''}" onclick="copyPhrase(this,'${esc(p)}')">
+    <div class="phrase-top">
+      <div class="phrase-text">${hi(p)}</div>
+      <button class="fav-btn${favd?' active':''}" onclick="toggleFav('${esc(p)}',event)" aria-label="${favd?'Remove from favorites':'Save to favorites'}">${favd?'⭐':'☆'}</button>
+    </div>
+    <div class="phrase-bottom">
+      <div class="phrase-tags">${discTags}${catTag}${subTag}${tmplTag}</div>
+      <div class="copy-hint">tap to copy</div>
+    </div>
+  </div>`;
+}
+
+// Render
+function render(){
+  const container=document.getElementById('content');
+  let html='',total=0,matched=0;
+
+  if(showFavs){
+    if(favorites.length===0){
+      html=`<div class="fav-empty"><div class="fav-empty-icon" role="img" aria-label="Star">⭐</div><div class="fav-empty-title">No favorites yet</div><div class="fav-empty-sub">Tap the ☆ on any phrase card to save it here for quick access.</div></div>`;
+    } else {
+      const ff=favorites.filter(f=>matchesSearch(f));
+      total=favorites.length; matched=ff.length;
+      html=ff.length===0?'<div class="empty">No favorites match your search.</div>':`<div class="cat-section"><div class="cat-header">⭐ Favorites <span class="cat-count">${ff.length} saved</span></div>${ff.map(p=>phraseCard(p,'','',null)).join('')}</div>`;
+    }
+    container.innerHTML=html; updateCount(matched,total); return;
+  }
+
+  getFilteredCats().forEach(cat=>{
+    let catHtml='',catCount=0;
+    cat.subs.forEach(sub=>{
+      let subHtml='',subCount=0;
+      if(cat.id==="avoid"){
+        sub.phrases.forEach(p=>{
+          const c=p.bad+" "+p.why+" "+p.fix; total++;
+          if(!matchesSearch(c))return;
+          matched++;subCount++;
+          subHtml+=`<div class="avoid-card"><div class="avoid-bad">${hi(p.bad)}</div><div class="avoid-why">${hi(p.why)}</div><div class="avoid-fix">${hi(p.fix)}</div></div>`;
+        });
+      } else {
+        sub.phrases.forEach(p=>{
+          total++;
+          if(!matchesSearch(p))return;
+          matched++;subCount++;
+          subHtml+=phraseCard(p,cat.name,sub.name,cat.disc);
+        });
+      }
+      if(subCount>0){catHtml+=`<div class="sub-header">${sub.name}</div>${subHtml}`;catCount+=subCount;}
+    });
+    if(catCount>0){html+=`<div class="cat-section"><div class="cat-header">${cat.name} <span class="cat-count">${catCount} phrase${catCount!==1?'s':''}</span></div>${catHtml}</div>`;}
+  });
+
+  container.innerHTML=html||'<div class="empty">No phrases match your search. Try a different keyword.</div>';
+  updateCount(matched,total);
+}
+
+function updateCount(matched,total){
+  document.getElementById('searchCount').textContent=searchTerm?`${matched} / ${total}`:`${total} phrases`;
+}
+
+// Copy with fallback for non-HTTPS / unsupported contexts
+function copyPhrase(el,text){
+  const doToast=()=>{
+    el.classList.add('copied');
+    const toast=document.getElementById('toast');
+    toast.textContent='✓ '+(text.length>72?text.slice(0,72)+'…':text);
+    toast.classList.add('show');
+    setTimeout(()=>{toast.classList.remove('show');el.classList.remove('copied');},2200);
+  };
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(text).then(doToast).catch(()=>{
+      fallbackCopy(text);doToast();
+    });
+  } else {
+    fallbackCopy(text);doToast();
+  }
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+}
+
+// Search
+function clearSearch(){
+  document.getElementById('searchInput').value='';
+  searchTerm='';
+  document.getElementById('searchClear').classList.remove('visible');
+  render();
+  document.getElementById('searchInput').focus();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  // Search input
+  document.getElementById('searchInput').addEventListener('input',e=>{
+    searchTerm=e.target.value.trim();
+    document.getElementById('searchClear').classList.toggle('visible',searchTerm.length>0);
+    render();
+  });
+  document.getElementById('searchClear').addEventListener('click',clearSearch);
+
+  // Favorites toggle
+  document.getElementById('favToggle').addEventListener('click',toggleFavView);
+
+  // Discipline filter
+  document.getElementById('discBar').addEventListener('click',e=>{
+    if(!e.target.classList.contains('disc-btn'))return;
+    activeDisc=e.target.dataset.disc;
+    document.querySelectorAll('.disc-btn').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+    activeCat="all"; buildCatBar(); render();
+  });
+
+  // Focus search
+  document.getElementById('searchInput').focus();
+
+  buildCatBar();
+  render();
+});
+</script>
+</body>
+</html>
