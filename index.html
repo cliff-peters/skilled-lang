@@ -17,10 +17,10 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 
 /* Header */
-.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;}
-.cp-logo{width:36px;height:36px;background:var(--logo-gradient);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--logo-text);flex-shrink:0;letter-spacing:-0.5px;}
-.hdr-eyebrow{font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:2px;}
-.hdr-title{font-size:17px;font-weight:800;line-height:1;}
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;}
+.cp-logo{width:44px;height:44px;background:var(--logo-gradient);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--logo-text);flex-shrink:0;letter-spacing:0.02em;}
+.hdr-eyebrow{font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:3px;}
+.hdr-title{font-size:20px;font-weight:900;line-height:1;}
 .hdr-title span{color:var(--blue);}
 .hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
 .hdr-badge{background:rgba(90,157,230,0.1);border:1px solid rgba(90,157,230,0.2);color:var(--blue);font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;}
@@ -28,7 +28,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .fav-toggle:hover,.fav-toggle.active{background:rgba(240,168,48,0.15);border-color:var(--amber);}
 
 /* Search */
-.search-wrap{padding:12px 24px;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:69px;z-index:99;}
+.search-wrap{padding:12px 24px;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:73px;z-index:99;}
 .search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;transition:border-color 0.2s;}
 .search-box:focus-within{border-color:var(--blue);}
 .search-icon{width:15px;height:15px;color:var(--muted);flex-shrink:0;}
@@ -40,7 +40,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .search-clear.visible{display:block;}
 
 /* Filters */
-.filter-panel{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:117px;z-index:98;}
+.filter-panel{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:121px;z-index:98;}
 .disc-bar{padding:10px 24px 6px;display:flex;gap:6px;}
 .disc-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all 0.2s;}
 .disc-btn:hover{border-color:var(--green);color:var(--text);}
@@ -155,7 +155,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 
 <div class="footer">
   <div class="footer-logo">CP</div>
-  <div class="footer-text">Built by Cliff Peters</div>
+  <div class="footer-text">Designed by Cliff Peters</div>
 </div>
 
 <script>
@@ -587,6 +587,38 @@ const DATA = {categories:[
     "Skilled speech-language pathology intervention performed addressing pragmatic language deficits including topic maintenance, turn-taking, and appropriate social interaction to improve participation.",
     "Speech therapy intervention completed targeting functional communication strategies to improve ability to express needs, wants, and preferences to care staff.",
     "Skilled intervention required to address reduced initiation and impaired social communication skills impacting quality of life and participation in facility programming."
+  ]}
+]},
+{id:"response",name:"Response to Treatment",disc:["pt","ot","st"],subs:[
+  {name:"Positive Response",phrases:[
+    "Resident demonstrated improved performance with the targeted functional task compared to prior session, indicating a positive response to the current treatment approach.",
+    "Resident tolerated the full treatment session without significant fatigue or pain exacerbation, supporting continuation of current intervention parameters.",
+    "Objective improvement noted this session with reduced cueing frequency required for the trained task, consistent with motor learning and skill acquisition.",
+    "Resident demonstrated increased endurance this session, completing the full exercise sequence with fewer rest breaks than previously required.",
+    "Positive response to treatment observed with improved transfer mechanics and reduced physical assist required compared to baseline.",
+    "Resident verbalized decreased pain with functional movement following therapeutic intervention, supporting continued use of current treatment approach.",
+    "Improved balance responses observed during dynamic standing tasks this session, consistent with positive adaptation to the current balance retraining program."
+  ]},
+  {name:"Inconsistent Response",phrases:[
+    "Resident demonstrated variable performance this session, with functional gains observed on some tasks and increased difficulty noted on others, likely secondary to fatigue.",
+    "Response to treatment was inconsistent this session, which may reflect the impact of a recent medication change on the resident's cognitive processing and motor planning.",
+    "Resident's performance was variable compared to prior session, consistent with the fluctuating presentation expected given the complexity of the underlying diagnosis.",
+    "Treatment response was inconsistent this session with increased cueing frequency required. Clinical assessment suggests the variability is related to poor sleep and elevated pain levels.",
+    "Resident demonstrated mixed response to treatment, with improvement in one targeted area and a plateau noted in another, supporting continued skilled reassessment and plan modification."
+  ]},
+  {name:"Negative or Declined Response",phrases:[
+    "Resident demonstrated a decline in functional performance this session compared to prior visit, requiring skilled clinician reassessment to identify contributing factors and modify the treatment approach.",
+    "Treatment response was below baseline this session, likely secondary to recent illness and decreased activity tolerance. Treatment parameters were modified accordingly.",
+    "Resident required increased physical assist this session compared to prior, consistent with a reported decline in sleep quality and increased pain levels. Plan of care adjusted to address current presentation.",
+    "Skilled reassessment completed this session following observed decline in balance performance. Contributing factors assessed and treatment approach modified to address current deficits.",
+    "Resident demonstrated reduced tolerance for therapeutic exercise this session secondary to pain exacerbation. Activity intensity reduced and alternative intervention strategies implemented."
+  ]},
+  {name:"Subjective Response",phrases:[
+    "Resident verbalized increased confidence with the targeted functional task following intervention, reporting feeling more steady and secure during the trained movement.",
+    "Resident reported decreased pain and improved ease of movement following manual therapy intervention, supporting continuation of current treatment approach.",
+    "Resident expressed motivation and engagement during session, verbalizing a desire to continue working toward established functional goals.",
+    "Resident verbalized frustration with the pace of progress this session. Clinician provided education on the expected timeline for functional recovery and adjusted short-term goals to support resident motivation.",
+    "Resident reported feeling more tired than usual this session. Treatment intensity modified and session duration adjusted based on subjective and objective tolerance indicators."
   ]}
 ]},
 {id:"avoid",name:"Avoid List",disc:["pt","ot","st"],subs:[
