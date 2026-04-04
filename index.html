@@ -28,7 +28,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .fav-toggle:hover,.fav-toggle.active{background:rgba(240,168,48,0.15);border-color:var(--amber);}
 
 /* Search */
-.search-wrap{padding:14px 28px;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:73px;z-index:99;}
+.search-wrap{padding:14px 28px;background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:73px;z-index:99;transition:transform 0.25s ease;}
 .search-box{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;transition:border-color 0.2s;}
 .search-box:focus-within{border-color:var(--blue);}
 .search-icon{width:15px;height:15px;color:var(--muted);flex-shrink:0;}
@@ -40,7 +40,9 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .search-clear.visible{display:block;}
 
 /* Filters */
-.filter-panel{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:121px;z-index:98;}
+.filter-panel{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:121px;z-index:98;transition:transform 0.25s ease;}
+.filters-hidden .search-wrap{transform:translateY(calc(-100% - 73px));}
+.filters-hidden .filter-panel{transform:translateY(calc(-200% - 73px));}
 .disc-bar{padding:10px 28px 6px;display:flex;gap:6px;}
 .disc-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all 0.2s;}
 .disc-btn:hover{border-color:var(--green);color:var(--text);}
@@ -811,6 +813,20 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   buildCatBar();
   render();
+
+  // Hide filters on scroll down, show on scroll up
+  var lastScroll = 0;
+  var scrollThreshold = 8;
+  window.addEventListener('scroll', function() {
+    var current = window.scrollY;
+    if (Math.abs(current - lastScroll) < scrollThreshold) return;
+    if (current > lastScroll && current > 100) {
+      document.body.classList.add('filters-hidden');
+    } else {
+      document.body.classList.remove('filters-hidden');
+    }
+    lastScroll = current;
+  }, {passive: true});
 });
 </script>
 </body>
