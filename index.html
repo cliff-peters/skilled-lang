@@ -10,20 +10,20 @@
 :root{
   --bg:#0c0f14;--surface:#181d28;--surface2:#1e2430;--border:#333a48;
   --text:#f0f2f5;--muted:#9ca3b4;
-  --blue:#5a9de6;--green:#3ecf7a;--amber:#f0a830;--red:#ef4444;--teal:#2dd4bf;
+  --blue:#a78bfa;--green:#3ecf7a;--amber:#f0a830;--red:#ef4444;--teal:#2dd4bf;
   --logo-gradient:linear-gradient(135deg,#4a90d9,#3ecf7a);--logo-text:#0c0f14;
 }
 body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color:var(--text);}
 ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 
 /* Header */
-.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;}
+.hdr{background:var(--surface);border-top:3px solid #a78bfa;border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;}
 .cp-logo{width:44px;height:44px;background:var(--logo-gradient);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--logo-text);flex-shrink:0;letter-spacing:0.02em;}
 .hdr-eyebrow{font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:3px;}
 .hdr-title{font-size:20px;font-weight:900;line-height:1;}
-.hdr-title span{color:var(--blue);}
+.hdr-title span{color:#a78bfa;}
 .hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
-.hdr-badge{background:rgba(90,157,230,0.1);border:1px solid rgba(90,157,230,0.2);color:var(--blue);font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;}
+.hdr-badge{background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);color:var(--blue);font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;}
 .fav-toggle{background:rgba(240,168,48,0.08);border:1px solid rgba(240,168,48,0.2);color:var(--amber);font-family:"Mulish",sans-serif;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:5px 10px;border-radius:4px;white-space:nowrap;cursor:pointer;transition:all 0.2s;}
 .fav-toggle:hover,.fav-toggle.active{background:rgba(240,168,48,0.15);border-color:var(--amber);}
 
@@ -50,7 +50,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .cat-bar{padding:4px 28px 10px;display:flex;flex-wrap:wrap;gap:6px;}
 .cat-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:700;letter-spacing:0.05em;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
 .cat-btn:hover{border-color:var(--blue);color:var(--text);}
-.cat-btn.active{background:rgba(90,157,230,0.1);border-color:var(--blue);color:var(--blue);}
+.cat-btn.active{background:rgba(167,139,250,0.1);border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 3px rgba(167,139,250,0.15);}
 
 /* Content */
 .content{padding:28px 28px 80px;}
@@ -77,7 +77,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .phrase-card:hover .copy-hint{opacity:1;}
 
 /* Tags */
-.tag{font-size:9px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(90,157,230,0.08);color:var(--blue);border:1px solid rgba(90,157,230,0.15);}
+.tag{font-size:9px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:rgba(167,139,250,0.08);color:var(--blue);border:1px solid rgba(167,139,250,0.15);}
 .tag.t-green{background:rgba(62,207,122,0.08);color:var(--green);border-color:rgba(62,207,122,0.15);}
 .tag.t-amber{background:rgba(240,168,48,0.08);color:var(--amber);border-color:rgba(240,168,48,0.15);}
 .tag.t-red{background:rgba(239,68,68,0.08);color:var(--red);border-color:rgba(239,68,68,0.15);}
@@ -124,7 +124,6 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 <div class="hdr">
   <div class="cp-logo">CP</div>
   <div>
-    <div class="hdr-eyebrow">The DOR Suite</div>
     <div class="hdr-title">Skilled Language <span>Reference</span></div>
   </div>
   <div class="hdr-right">
