@@ -2,7 +2,7 @@
 
 Searchable library of audit-defensible PT, OT, and ST documentation phrases for Medicare Part B compliance.
 
-Live: https://cliff-peters.github.io/skilled-lang
+Live: [https://cliff-peters.github.io/skilled-lang](https://cliff-peters.github.io/skilled-lang)
 
 ## Features
 
@@ -15,4 +15,4 @@ Live: https://cliff-peters.github.io/skilled-lang
 
 ## Part of The DOR Suite
 
-https://cliff-peters.github.io
+[https://cliff-peters.github.io](https://cliff-peters.github.io)
