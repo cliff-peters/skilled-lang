@@ -41,8 +41,9 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 
 /* Filters */
 .filter-panel{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:121px;z-index:98;transition:transform 0.25s ease;}
-.filters-hidden .search-wrap{transform:translateY(calc(-100% - 73px));}
-.filters-hidden .filter-panel{transform:translateY(calc(-200% - 73px));}
+.body-detail .search-wrap{top:121px;}
+.filters-hidden:not(.body-detail) .search-wrap{transform:translateY(calc(-100% - 73px));}
+.filters-hidden:not(.body-detail) .filter-panel{transform:translateY(calc(-200% - 73px));}
 .disc-bar{padding:10px 28px 6px;display:flex;gap:6px;}
 .disc-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all 0.2s;}
 .disc-btn:hover{border-color:var(--green);color:var(--text);}
@@ -52,15 +53,45 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .cat-btn:hover{border-color:var(--blue);color:var(--text);}
 .cat-btn.active{background:rgba(167,139,250,0.1);border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 3px rgba(167,139,250,0.15);}
 
-/* Content */
-.content{padding:28px 28px 80px;}
-.cat-section{margin-bottom:32px;}
-.cat-header{font-size:13px;font-weight:800;color:var(--blue);padding:0 0 8px;border-bottom:1px solid var(--border);margin-bottom:12px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:0.06em;}
+/* Category card grid (home) */
+.content{padding:20px 28px 80px;}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;padding:16px 18px;cursor:pointer;transition:border-color 0.15s,background 0.15s,transform 0.15s;display:flex;flex-direction:column;gap:8px;}
+.cat-card:hover{border-color:var(--blue);border-left-color:var(--blue);background:var(--surface2);transform:translateY(-1px);}
+.cat-card-name{font-size:13px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:0.05em;}
+.cat-card-meta{display:flex;align-items:center;justify-content:space-between;}
+.cat-card-count{font-size:11px;font-weight:700;color:var(--muted);}
+.cat-card-discs{display:flex;gap:4px;}
+.cat-card-subs{font-size:11px;font-weight:500;color:var(--muted);line-height:1.55;}
+.cat-card-match{font-size:10px;font-weight:800;color:var(--green);letter-spacing:0.04em;}
+
+/* Detail view */
+.detail-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 28px;display:none;align-items:center;gap:12px;position:sticky;top:73px;z-index:99;}
+.body-detail .detail-nav{display:flex;}
+.body-detail .search-wrap{display:none;}
+.body-detail .filter-panel{display:none;}
+.back-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:6px 12px;border-radius:5px;cursor:pointer;transition:border-color 0.15s,color 0.15s;flex-shrink:0;}
+.back-btn:hover{border-color:var(--blue);color:var(--text);}
+.detail-title{font-size:14px;font-weight:900;color:var(--text);}
+.detail-count{font-size:10px;font-weight:700;color:var(--muted);margin-left:auto;flex-shrink:0;}
+
+/* Subcategory card grid (level 2) */
+.sub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.sub-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:8px;padding:16px 18px;cursor:pointer;transition:border-color 0.15s,background 0.15s,transform 0.15s;display:flex;flex-direction:column;gap:6px;}
+.sub-card:hover{border-color:var(--amber);background:var(--surface2);transform:translateY(-1px);}
+.sub-card-name{font-size:13px;font-weight:800;color:var(--text);}
+.sub-card-count{font-size:11px;font-weight:700;color:var(--muted);}
+.sub-card-match{font-size:10px;font-weight:800;color:var(--green);letter-spacing:0.04em;}
+
+/* Phrase list (level 3) */
+.phrase-list-header{font-size:11px;font-weight:800;color:var(--muted);padding:0 0 8px;border-bottom:1px solid var(--border);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.08em;}
+.cat-section{margin-bottom:24px;}
+.cat-header{font-size:11px;font-weight:800;color:var(--muted);padding:0 0 6px;border-bottom:1px solid var(--border);margin-bottom:10px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:0.08em;}
 .cat-count{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.04em;text-transform:none;}
-.sub-header{font-size:10px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;padding:8px 0 6px;}
+.sub-header{font-size:10px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;padding:10px 0 6px;}
 
 /* Phrase cards */
-.phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:all 0.15s;}
+.phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:border-color 0.15s,background 0.15s;}
 .phrase-card:hover{border-color:var(--blue);background:var(--surface2);}
 .phrase-card.copied{border-color:var(--green);}
 .phrase-card.favorited{border-color:rgba(240,168,48,0.35);}
@@ -112,10 +143,13 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 @media(max-width:600px){
   .hdr{padding:12px 16px;}.hdr-badge{display:none;}.fav-toggle{font-size:8px;padding:4px 8px;letter-spacing:0.06em;}
   .search-wrap{padding:10px 16px;top:65px;}
+  .detail-nav{top:65px;padding:8px 16px;}
+  .body-detail .search-wrap{top:113px;}
   .filter-panel{top:109px;}
   .disc-bar{padding:8px 16px 4px;}.cat-bar{padding:4px 16px 8px;}
-  .content{padding:16px 16px 60px;}
+  .content{padding:12px 16px 60px;}
   .copy-hint{display:none;}
+  .cat-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -148,7 +182,12 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
     <button type="button" class="disc-btn" data-disc="ot" aria-label="Filter phrases: occupational therapy">OT</button>
     <button type="button" class="disc-btn" data-disc="st" aria-label="Filter phrases: speech therapy">ST</button>
   </div>
-  <div class="cat-bar" id="catBar"></div>
+</div>
+
+<div class="detail-nav" id="detailNav">
+  <button type="button" class="back-btn" id="backBtn" aria-label="Go back">← Back</button>
+  <span class="detail-title" id="detailTitle"></span>
+  <span class="detail-count" id="detailCount"></span>
 </div>
 
 <div class="content" id="content"></div>
@@ -639,7 +678,7 @@ const DATA = {categories:[
 ]};
 
 // State
-let activeDisc="all", activeCat="all", searchTerm="", showFavs=false;
+let activeDisc="all", searchTerm="", showFavs=false, currentCat=null, currentSub=null;
 
 // Safe localStorage
 function loadFavs(){
@@ -667,7 +706,6 @@ function toggleFavView(){
 // Helpers
 function isTemplate(p){return /\[.+?\]/.test(p);}
 function getVisibleCats(){return DATA.categories.filter(c=>activeDisc==="all"||c.disc.includes(activeDisc));}
-function getFilteredCats(){return getVisibleCats().filter(c=>activeCat==="all"||c.id===activeCat);}
 function matchesSearch(t){return !searchTerm||t.toLowerCase().includes(searchTerm.toLowerCase());}
 function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
@@ -676,13 +714,62 @@ function hi(t){
   return t.replace(new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),'<span class="highlight">$1</span>');
 }
 
-// Cat bar
-function buildCatBar(){
-  const bar=document.getElementById('catBar');
-  let html=`<button type="button" class="cat-btn${activeCat==='all'?' active':''}" data-cat="all" aria-label="Filter category: all categories">All</button>`;
-  getVisibleCats().forEach(c=>{html+=`<button type="button" class="cat-btn${activeCat===c.id?' active':''}" data-cat="${c.id}" aria-label="Filter category: ${escAttr(c.name)}">${c.name}</button>`;});
-  bar.innerHTML=html;
-  bar.querySelectorAll('.cat-btn').forEach(btn=>btn.addEventListener('click',()=>{activeCat=btn.dataset.cat;buildCatBar();render();}));
+// Navigation
+function openCat(id){
+  currentCat=id;
+  const cat=DATA.categories.find(c=>c.id===id);
+  // Skip subcategory grid if only one sub exists
+  currentSub=(cat&&cat.subs.length===1)?cat.subs[0].name:null;
+  clearSearchUI();
+  document.body.classList.add('body-detail');
+  updateDetailNav();
+  render();
+}
+function clearSearchUI(){
+  searchTerm='';
+  const inp=document.getElementById('searchInput');
+  if(inp) inp.value='';
+  document.getElementById('searchClear').classList.remove('visible');
+  document.getElementById('searchCount').textContent='';
+}
+function openSub(subName){
+  currentSub=subName;
+  updateDetailNav();
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goBack(){
+  if(currentSub){
+    const cat=DATA.categories.find(c=>c.id===currentCat);
+    const singleSub=cat&&cat.subs.length===1;
+    if(singleSub){
+      goHome();
+    } else {
+      currentSub=null;
+      updateDetailNav();
+      render();
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+  } else {
+    goHome();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+function goHome(){
+  currentCat=null; currentSub=null;
+  document.body.classList.remove('body-detail','filters-hidden');
+  updateDetailNav();
+  render();
+  document.getElementById('searchInput').focus();
+}
+function updateDetailNav(){
+  const cat=currentCat?DATA.categories.find(c=>c.id===currentCat):null;
+  const catName=cat?cat.name:'';
+  let title='';
+  if(currentSub) title=`<span style="color:var(--muted);font-weight:600">${catName}</span> <span style="color:var(--border);margin:0 4px">›</span> ${currentSub}`;
+  else if(currentCat) title=catName;
+  document.getElementById('detailTitle').innerHTML=title;
+  document.getElementById('backBtn').textContent=currentSub?`← ${catName}`:'← Categories';
 }
 
 // Phrase card
@@ -705,48 +792,118 @@ function phraseCard(p,catName,subName,disc){
   </div>`;
 }
 
+// Count all phrases in a category that match current search
+function catMatchCount(cat){
+  let n=0;
+  cat.subs.forEach(sub=>{
+    sub.phrases.forEach(p=>{
+      const txt=typeof p==='string'?p:(p.bad+' '+p.why+' '+p.fix);
+      if(matchesSearch(txt))n++;
+    });
+  });
+  return n;
+}
+function catTotalCount(cat){
+  return cat.subs.reduce((s,sub)=>s+sub.phrases.length,0);
+}
+
 // Render
 function render(){
   const container=document.getElementById('content');
-  let html='',total=0,matched=0;
 
+  // — Favorites view —
   if(showFavs){
+    document.body.classList.remove('body-detail');
+    let html='',total=favorites.length,matched=0;
     if(favorites.length===0){
-      html=`<div class="fav-empty"><div class="fav-empty-icon" role="img" aria-label="Star">⭐</div><div class="fav-empty-title">No favorites yet</div><div class="fav-empty-sub">Tap the ☆ on any phrase card to save it here for quick access.</div></div>`;
+      html=`<div class="fav-empty"><div class="fav-empty-icon" role="img" aria-label="Star">⭐</div><div class="fav-empty-title">No favorites yet</div><div class="fav-empty-sub">Tap the ☆ on any phrase to save it here for quick access.</div></div>`;
     } else {
       const ff=favorites.filter(f=>matchesSearch(f));
-      total=favorites.length; matched=ff.length;
-      html=ff.length===0?'<div class="empty">No favorites match your search.</div>':`<div class="cat-section"><div class="cat-header">⭐ Favorites <span class="cat-count">${ff.length} saved</span></div>${ff.map(p=>phraseCard(p,'','',null)).join('')}</div>`;
+      matched=ff.length;
+      html=ff.length===0?'<div class="empty">No favorites match your search.</div>':`<div class="cat-section"><div class="cat-header">⭐ Saved phrases <span class="cat-count">${ff.length}</span></div>${ff.map(p=>phraseCard(p,'','',null)).join('')}</div>`;
     }
     container.innerHTML=html; updateCount(matched,total); return;
   }
 
-  getFilteredCats().forEach(cat=>{
-    let catHtml='',catCount=0;
-    cat.subs.forEach(sub=>{
-      let subHtml='',subCount=0;
+  // — Level 3: Phrase list (single subcategory) —
+  if(currentCat&&currentSub){
+    const cat=DATA.categories.find(c=>c.id===currentCat);
+    const sub=cat?cat.subs.find(s=>s.name===currentSub):null;
+    let html='',total=0,matched=0;
+    if(sub){
       if(cat.id==="avoid"){
         sub.phrases.forEach(p=>{
-          const c=p.bad+" "+p.why+" "+p.fix; total++;
+          const c=p.bad+' '+p.why+' '+p.fix; total++;
           if(!matchesSearch(c))return;
-          matched++;subCount++;
-          subHtml+=`<div class="avoid-card"><div class="avoid-bad">${hi(p.bad)}</div><div class="avoid-why">${hi(p.why)}</div><div class="avoid-fix">${hi(p.fix)}</div></div>`;
+          matched++;
+          html+=`<div class="avoid-card"><div class="avoid-bad">${hi(p.bad)}</div><div class="avoid-why">${hi(p.why)}</div><div class="avoid-fix">${hi(p.fix)}</div></div>`;
         });
       } else {
         sub.phrases.forEach(p=>{
           total++;
           if(!matchesSearch(p))return;
-          matched++;subCount++;
-          subHtml+=phraseCard(p,cat.name,sub.name,cat.disc);
+          matched++;
+          html+=phraseCard(p,cat.name,sub.name,cat.disc);
         });
       }
-      if(subCount>0){catHtml+=`<div class="sub-header">${sub.name}</div>${subHtml}`;catCount+=subCount;}
-    });
-    if(catCount>0){html+=`<div class="cat-section"><div class="cat-header">${cat.name} <span class="cat-count">${catCount} phrase${catCount!==1?'s':''}</span></div>${catHtml}</div>`;}
-  });
+    }
+    container.innerHTML=html||'<div class="empty">No phrases match your search.</div>';
+    document.getElementById('detailCount').textContent=searchTerm?`${matched} / ${total} phrases`:`${total} phrases`;
+    updateCount(matched,total);
+    return;
+  }
 
-  container.innerHTML=html||'<div class="empty">No phrases match your search. Try a different keyword.</div>';
-  updateCount(matched,total);
+  // — Level 2: Subcategory card grid —
+  if(currentCat){
+    const cat=DATA.categories.find(c=>c.id===currentCat);
+    let html='',total=0,matched=0;
+    if(cat){
+      const cards=cat.subs.map(sub=>{
+        const subTotal=sub.phrases.length;
+        total+=subTotal;
+        // count matches
+        let subMatch=0;
+        sub.phrases.forEach(p=>{
+          const txt=typeof p==='string'?p:(p.bad+' '+p.why+' '+p.fix);
+          if(matchesSearch(txt))subMatch++;
+        });
+        if(searchTerm&&subMatch===0)return '';
+        matched+=subMatch;
+        const matchBadge=searchTerm?`<span class="sub-card-match">${subMatch} match${subMatch!==1?'es':''}</span>`:`<span class="sub-card-count">${subTotal} phrase${subTotal!==1?'s':''}</span>`;
+        return `<div class="sub-card" onclick="openSub('${escAttr(sub.name)}')" role="button" tabindex="0" aria-label="Open ${escAttr(sub.name)}">
+          <div class="sub-card-name">${sub.name}</div>
+          ${matchBadge}
+        </div>`;
+      }).join('');
+      html=cards?`<div class="sub-grid">${cards}</div>`:'<div class="empty">No subcategories match your search.</div>';
+    }
+    container.innerHTML=html||'<div class="empty">Category not found.</div>';
+    document.getElementById('detailCount').textContent=searchTerm?`${matched} / ${total} phrases`:`${total} phrases`;
+    updateCount(matched||total,total);
+    return;
+  }
+
+  // — Level 1: Home — category card grid —
+  const visible=getVisibleCats();
+  let html='',total=0,matched=0;
+  const cards=visible.map(cat=>{
+    const catTotal=catTotalCount(cat);
+    total+=catTotal;
+    const catMatch=catMatchCount(cat);
+    if(searchTerm&&catMatch===0)return '';
+    matched+=catMatch;
+    const discTags=cat.disc.map(d=>`<span class="tag t-green">${d.toUpperCase()}</span>`).join('');
+    const subsPreview=cat.subs.map(s=>s.name).join(' · ');
+    const matchBadge=searchTerm?`<span class="cat-card-match">${catMatch} match${catMatch!==1?'es':''}</span>`:'';
+    return `<div class="cat-card" onclick="openCat('${cat.id}')" role="button" tabindex="0" aria-label="Open ${escAttr(cat.name)}">
+      <div class="cat-card-meta"><span class="cat-card-name">${cat.name}</span></div>
+      <div class="cat-card-subs">${subsPreview}</div>
+      <div class="cat-card-meta"><span class="cat-card-discs">${discTags}</span>${matchBadge||'<span class="cat-card-count">'+catTotal+' phrases</span>'}</div>
+    </div>`;
+  }).join('');
+  html=cards?`<div class="cat-grid">${cards}</div>`:'<div class="empty">No categories match your filters.</div>';
+  container.innerHTML=html;
+  updateCount(matched||total,total);
 }
 
 function updateCount(matched,total){
@@ -788,7 +945,7 @@ function clearSearch(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  // Search input
+  // Search
   document.getElementById('searchInput').addEventListener('input',e=>{
     searchTerm=e.target.value.trim();
     document.getElementById('searchClear').classList.toggle('visible',searchTerm.length>0);
@@ -805,28 +962,29 @@ document.addEventListener('DOMContentLoaded',()=>{
     activeDisc=e.target.dataset.disc;
     document.querySelectorAll('.disc-btn').forEach(b=>b.classList.remove('active'));
     e.target.classList.add('active');
-    activeCat="all"; buildCatBar(); render();
+    if(currentCat||currentSub) goHome(); else render();
   });
 
-  // Focus search
-  document.getElementById('searchInput').focus();
+  // Back button
+  document.getElementById('backBtn').addEventListener('click',goBack);
 
-  buildCatBar();
+  // Keyboard: Enter on cat-card
+  document.getElementById('content').addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&e.target.classList.contains('cat-card')) e.target.click();
+  });
+
+  document.getElementById('searchInput').focus();
   render();
 
-  // Hide filters on scroll down, show on scroll up
-  var lastScroll = 0;
-  var scrollThreshold = 8;
-  window.addEventListener('scroll', function() {
-    var current = window.scrollY;
-    if (Math.abs(current - lastScroll) < scrollThreshold) return;
-    if (current > lastScroll && current > 100) {
-      document.body.classList.add('filters-hidden');
-    } else {
-      document.body.classList.remove('filters-hidden');
-    }
-    lastScroll = current;
-  }, {passive: true});
+  // Hide filter bar on scroll down in home view
+  var lastScroll=0, scrollThreshold=8;
+  window.addEventListener('scroll',function(){
+    var current=window.scrollY;
+    if(Math.abs(current-lastScroll)<scrollThreshold)return;
+    if(current>lastScroll&&current>80) document.body.classList.add('filters-hidden');
+    else document.body.classList.remove('filters-hidden');
+    lastScroll=current;
+  },{passive:true});
 });
 </script>
 </body>
