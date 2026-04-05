@@ -128,7 +128,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
     <div class="hdr-title">Skilled Language <span>Reference</span></div>
   </div>
   <div class="hdr-right">
-    <button class="fav-toggle" id="favToggle" aria-label="Toggle favorites view">⭐ Favorites</button>
+    <button type="button" class="fav-toggle" id="favToggle" aria-label="Toggle favorites view">⭐ Favorites</button>
     <div class="hdr-badge">Tap to Copy</div>
   </div>
 </div>
@@ -136,18 +136,18 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 <div class="search-wrap">
   <div class="search-box">
     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" class="search-input" id="searchInput" placeholder="Search phrases, keywords, or categories…" autocomplete="off"/>
+    <input type="text" class="search-input" id="searchInput" placeholder="Search phrases, keywords, or categories…" autocomplete="off" aria-label="Search phrases and categories"/>
     <span class="search-count" id="searchCount"></span>
-    <button class="search-clear" id="searchClear" aria-label="Clear search" title="Clear">×</button>
+    <button type="button" class="search-clear" id="searchClear" aria-label="Clear search" title="Clear">×</button>
   </div>
 </div>
 
 <div class="filter-panel">
   <div class="disc-bar" id="discBar">
-    <button class="disc-btn active" data-disc="all">All</button>
-    <button class="disc-btn" data-disc="pt">PT</button>
-    <button class="disc-btn" data-disc="ot">OT</button>
-    <button class="disc-btn" data-disc="st">ST</button>
+    <button type="button" class="disc-btn active" data-disc="all" aria-label="Filter phrases: all disciplines">All</button>
+    <button type="button" class="disc-btn" data-disc="pt" aria-label="Filter phrases: physical therapy">PT</button>
+    <button type="button" class="disc-btn" data-disc="ot" aria-label="Filter phrases: occupational therapy">OT</button>
+    <button type="button" class="disc-btn" data-disc="st" aria-label="Filter phrases: speech therapy">ST</button>
   </div>
   <div class="cat-bar" id="catBar"></div>
 </div>
@@ -671,6 +671,7 @@ function getVisibleCats(){return DATA.categories.filter(c=>activeDisc==="all"||c
 function getFilteredCats(){return getVisibleCats().filter(c=>activeCat==="all"||c.id===activeCat);}
 function matchesSearch(t){return !searchTerm||t.toLowerCase().includes(searchTerm.toLowerCase());}
 function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
 function hi(t){
   if(!searchTerm)return t;
   return t.replace(new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),'<span class="highlight">$1</span>');
@@ -679,8 +680,8 @@ function hi(t){
 // Cat bar
 function buildCatBar(){
   const bar=document.getElementById('catBar');
-  let html=`<button class="cat-btn${activeCat==='all'?' active':''}" data-cat="all">All</button>`;
-  getVisibleCats().forEach(c=>{html+=`<button class="cat-btn${activeCat===c.id?' active':''}" data-cat="${c.id}">${c.name}</button>`;});
+  let html=`<button type="button" class="cat-btn${activeCat==='all'?' active':''}" data-cat="all" aria-label="Filter category: all categories">All</button>`;
+  getVisibleCats().forEach(c=>{html+=`<button type="button" class="cat-btn${activeCat===c.id?' active':''}" data-cat="${c.id}" aria-label="Filter category: ${escAttr(c.name)}">${c.name}</button>`;});
   bar.innerHTML=html;
   bar.querySelectorAll('.cat-btn').forEach(btn=>btn.addEventListener('click',()=>{activeCat=btn.dataset.cat;buildCatBar();render();}));
 }
@@ -696,7 +697,7 @@ function phraseCard(p,catName,subName,disc){
   return `<div class="phrase-card${favd?' favorited':''}" onclick="copyPhrase(this,'${esc(p)}')">
     <div class="phrase-top">
       <div class="phrase-text">${hi(p)}</div>
-      <button class="fav-btn${favd?' active':''}" onclick="toggleFav('${esc(p)}',event)" aria-label="${favd?'Remove from favorites':'Save to favorites'}">${favd?'⭐':'☆'}</button>
+      <button type="button" class="fav-btn${favd?' active':''}" onclick="toggleFav('${esc(p)}',event)" aria-label="${favd?'Remove from favorites':'Save to favorites'}">${favd?'⭐':'☆'}</button>
     </div>
     <div class="phrase-bottom">
       <div class="phrase-tags">${discTags}${catTag}${subTag}${tmplTag}</div>
