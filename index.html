@@ -54,7 +54,7 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .cat-btn.active{background:rgba(167,139,250,0.1);border-color:var(--blue);color:var(--blue);box-shadow:0 0 0 3px rgba(167,139,250,0.15);}
 
 /* Category card grid (home) */
-.content{padding:20px 28px 100px;}
+.content{padding:20px 28px 40px;}
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
 .cat-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;padding:16px 18px;cursor:pointer;transition:border-color 0.15s,background 0.15s,transform 0.15s;display:flex;flex-direction:column;gap:8px;}
 .cat-card:hover{border-color:var(--blue);border-left-color:var(--blue);background:var(--surface2);transform:translateY(-1px);}
@@ -128,59 +128,8 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 .highlight{background:rgba(240,168,48,0.25);color:var(--amber);border-radius:2px;padding:0 1px;}
 .empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px;font-weight:600;}
 
-/* Note Builder tray */
-.note-tray{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:2px solid var(--blue);z-index:300;transition:transform 0.25s ease;transform:translateY(calc(100% - 52px));}
-.note-tray.open{transform:translateY(0);}
-.tray-bar{display:flex;align-items:center;gap:10px;padding:0 16px;height:52px;cursor:pointer;user-select:none;}
-.tray-bar:hover{background:var(--surface2);}
-.tray-label{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);}
-.tray-count{background:var(--blue);color:#0c0f14;font-size:10px;font-weight:900;padding:2px 8px;border-radius:10px;min-width:20px;text-align:center;}
-.tray-actions{margin-left:auto;display:flex;gap:8px;}
-.tray-action-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:5px 10px;border-radius:4px;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
-.tray-action-btn:hover{border-color:var(--blue);color:var(--blue);}
-.tray-action-btn.danger:hover{border-color:var(--red);color:var(--red);}
-.tray-chevron{font-size:11px;color:var(--muted);transition:transform 0.25s;flex-shrink:0;}
-.note-tray.open .tray-chevron{transform:rotate(180deg);}
-.tray-body{max-height:50vh;overflow-y:auto;padding:12px 16px 20px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:12px;}
-.tray-block{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
-.tray-block-label{font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
-.tray-block-text{font-size:13px;font-weight:600;line-height:1.7;color:var(--text);margin-bottom:12px;}
-.tray-section-label{font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px;}
-.tray-assist{display:flex;flex-wrap:wrap;gap:6px;}
-.assist-chip{background:none;border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;cursor:pointer;transition:all 0.15s;}
-.assist-chip:hover{border-color:var(--blue);color:var(--blue);}
-.assist-chip.active{background:rgba(167,139,250,0.12);border-color:var(--blue);color:var(--blue);}
-.cue-sub-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
-.cue-sub-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;cursor:pointer;transition:all 0.15s;}
-.cue-sub-btn:hover{border-color:var(--teal);color:var(--teal);}
-.cue-sub-btn.active{background:rgba(45,212,191,0.12);border-color:var(--teal);color:var(--teal);}
-.cue-phrases-list{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;padding:6px;}
-.cue-phrase-item{background:none;border:none;text-align:left;font-family:"Mulish",sans-serif;font-size:11px;font-weight:600;color:var(--muted);padding:5px 8px;border-radius:4px;cursor:pointer;transition:all 0.15s;line-height:1.5;}
-.cue-phrase-item:hover{background:var(--surface);color:var(--text);}
-.cue-phrase-item.selected{background:rgba(45,212,191,0.08);color:var(--teal);}
-.cue-selected-list{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;}
-.cue-selected-chip{display:flex;align-items:flex-start;gap:6px;background:rgba(45,212,191,0.06);border:1px solid rgba(45,212,191,0.2);border-radius:5px;padding:5px 8px;}
-.cue-selected-chip-text{font-size:11px;font-weight:600;color:var(--teal);line-height:1.5;flex:1;}
-.cue-selected-rm{background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;flex-shrink:0;padding:0;line-height:1;transition:color 0.15s;}
-.cue-selected-rm:hover{color:var(--red);}
-.tray-distance{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:"Mulish",sans-serif;font-size:13px;font-weight:600;padding:8px 10px;outline:none;transition:border-color 0.15s;}
-.tray-distance:focus{border-color:var(--blue);}
-.tray-distance::placeholder{color:var(--muted);}
-.tray-block-footer{display:flex;align-items:center;justify-content:space-between;}
-.tray-remove{background:none;border:none;color:var(--muted);font-family:"Mulish",sans-serif;font-size:10px;font-weight:700;cursor:pointer;padding:0;transition:color 0.15s;}
-.tray-remove:hover{color:var(--red);}
-.tray-copy-btn{background:transparent;border:1.5px solid var(--blue);color:var(--blue);font-family:"Mulish",sans-serif;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;border-radius:5px;cursor:pointer;transition:all 0.15s;}
-.tray-copy-btn:hover,.tray-copy-btn.copied{background:var(--blue);color:#0c0f14;}
-.tray-empty{text-align:center;padding:24px;color:var(--muted);font-size:12px;font-weight:600;}
-
-/* Add-to-note button on phrase cards */
-.add-note-btn{background:none;border:none;cursor:pointer;font-size:13px;padding:2px 0 0;flex-shrink:0;opacity:0.2;transition:opacity 0.2s,transform 0.15s;line-height:1;color:var(--blue);}
-.phrase-card:hover .add-note-btn{opacity:0.7;}
-.add-note-btn:hover{opacity:1!important;transform:scale(1.2);}
-.add-note-btn.added{opacity:1!important;color:var(--green);}
-
 /* Toast */
-.copy-toast{position:fixed;bottom:64px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#0c0f14;font-family:"Mulish",sans-serif;font-size:12px;font-weight:800;padding:9px 18px;border-radius:6px;opacity:0;transition:all 0.25s;pointer-events:none;z-index:400;letter-spacing:0.02em;max-width:340px;text-align:center;line-height:1.4;}
+.copy-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#0c0f14;font-family:"Mulish",sans-serif;font-size:12px;font-weight:800;padding:9px 18px;border-radius:6px;opacity:0;transition:all 0.25s;pointer-events:none;z-index:400;letter-spacing:0.02em;max-width:340px;text-align:center;line-height:1.4;}
 .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* Footer */
@@ -213,7 +162,6 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
   </div>
   <div class="hdr-right">
     <button type="button" class="fav-toggle" id="favToggle" aria-label="Toggle favorites view">⭐ Favorites</button>
-    <button type="button" class="fav-toggle" id="noteToggle" aria-label="Toggle note builder" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:var(--blue);">📋 Note Builder</button>
     <div class="hdr-badge">Tap to Copy</div>
   </div>
 </div>
@@ -245,18 +193,6 @@ body{min-height:100vh;background:var(--bg);font-family:"Mulish",sans-serif;color
 <div class="content" id="content"></div>
 <div class="copy-toast" id="toast"></div>
 
-<div class="note-tray" id="noteTray">
-  <div class="tray-bar" id="trayBar">
-    <span class="tray-label">📋 Note Builder</span>
-    <span class="tray-count" id="trayCount">0</span>
-    <div class="tray-actions" onclick="event.stopPropagation()">
-      <button type="button" class="tray-action-btn" id="copyAllBtn" onclick="copyAllBlocks()">Copy All</button>
-      <button type="button" class="tray-action-btn danger" onclick="clearTray()">Clear</button>
-    </div>
-    <span class="tray-chevron" id="trayChevron">▲</span>
-  </div>
-  <div class="tray-body" id="trayBody"></div>
-</div>
 
 <div class="footer">
   <div class="footer-logo">CP</div>
@@ -838,19 +774,16 @@ function updateDetailNav(){
 }
 
 // Phrase card
-function phraseCard(p,catName,subName,disc,catId){
+function phraseCard(p,catName,subName,disc){
   const favd=isFav(p);
   const tmpl=isTemplate(p);
   const discTags=disc?disc.map(d=>`<span class="tag t-green">${d.toUpperCase()}</span>`).join(''):'';
   const catTag=catName?`<span class="tag">${catName}</span>`:'';
   const subTag=subName?`<span class="tag t-amber">${subName}</span>`:'';
   const tmplTag=tmpl?`<span class="tag t-template">Fill in blanks</span>`:'';
-  const label=subName||catName||'';
-  const cid=catId||'';
   return `<div class="phrase-card${favd?' favorited':''}" onclick="copyPhrase(this,'${esc(p)}')">
     <div class="phrase-top">
       <div class="phrase-text">${hi(p)}</div>
-      <button type="button" class="add-note-btn" onclick="addToNote('${esc(p)}','${esc(label)}','${cid}',event)" aria-label="Add to note builder" title="Add to Note Builder">＋</button>
       <button type="button" class="fav-btn${favd?' active':''}" onclick="toggleFav('${esc(p)}',event)" aria-label="${favd?'Remove from favorites':'Save to favorites'}">${favd?'⭐':'☆'}</button>
     </div>
     <div class="phrase-bottom">
@@ -858,133 +791,6 @@ function phraseCard(p,catName,subName,disc,catId){
       <div class="copy-hint">tap to copy</div>
     </div>
   </div>`;
-}
-
-// Note Builder
-const ASSIST_LEVELS=['','CGA','SBA','Min A','Mod A','Max A','Total A'];
-const ASSIST_LABELS=['None','CGA','SBA','Min A','Mod A','Max A','Total A'];
-const ASSIST_SENTENCES={
-  'CGA':'Contact guard assist provided.',
-  'SBA':'Supervision provided throughout for safety.',
-  'Min A':'Minimal assistance required.',
-  'Mod A':'Moderate assistance required.',
-  'Max A':'Maximum assistance required.',
-  'Total A':'Total assistance required.'
-};
-let noteBlocks=[];
-let trayOpen=false;
-
-function addToNote(phrase,label,catId,e){
-  e.stopPropagation();
-  noteBlocks.push({phrase,label,catId,assist:'',distance:'',cuePhrases:[],cueExpanded:null});
-  renderTray();
-  if(!trayOpen) openTray();
-  const btn=e.currentTarget;
-  btn.classList.add('added');
-  btn.textContent='✓';
-  setTimeout(()=>{btn.classList.remove('added');btn.textContent='＋';},1200);
-}
-
-function openTray(){trayOpen=true;document.getElementById('noteTray').classList.add('open');}
-function closeTray(){trayOpen=false;document.getElementById('noteTray').classList.remove('open');}
-function toggleTrayOpen(){trayOpen?closeTray():openTray();}
-
-function clearTray(){
-  if(noteBlocks.length&&!confirm('Clear all note blocks?'))return;
-  noteBlocks=[];renderTray();closeTray();
-}
-
-function setAssist(idx,val){noteBlocks[idx].assist=val;renderTray();}
-function setDistance(idx,val){noteBlocks[idx].distance=val;}
-function toggleCueExpand(idx,subName){
-  noteBlocks[idx].cueExpanded=noteBlocks[idx].cueExpanded===subName?null:subName;
-  renderTray();
-}
-function toggleCuePhrase(idx,phrase){
-  const arr=noteBlocks[idx].cuePhrases;
-  const i=arr.indexOf(phrase);
-  if(i===-1) arr.push(phrase); else arr.splice(i,1);
-  renderTray();
-}
-function removeCuePhrase(idx,pi){
-  noteBlocks[idx].cuePhrases.splice(pi,1);
-  renderTray();
-}
-
-function removeBlock(idx){
-  noteBlocks.splice(idx,1);
-  renderTray();
-  if(noteBlocks.length===0)closeTray();
-}
-
-function blockText(b){
-  let t=b.phrase;
-  if(b.assist&&ASSIST_SENTENCES[b.assist]) t+=' '+ASSIST_SENTENCES[b.assist];
-  if(b.catId==='gait'&&b.distance&&b.distance.trim()) t+=' Resident ambulated '+b.distance.trim()+'.';
-  if(b.cuePhrases&&b.cuePhrases.length) t+=' '+b.cuePhrases.join(' ');
-  return t;
-}
-
-function copyBlock(idx,btnEl){
-  const text=blockText(noteBlocks[idx]);
-  const done=()=>{btnEl.textContent='Copied ✓';btnEl.classList.add('copied');setTimeout(()=>{btnEl.textContent='Copy';btnEl.classList.remove('copied');},2000);};
-  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(text).then(done).catch(()=>{fallbackCopy(text);done();});
-  else{fallbackCopy(text);done();}
-}
-
-function copyAllBlocks(){
-  if(!noteBlocks.length)return;
-  const text=noteBlocks.map(b=>blockText(b)).join('\n\n');
-  const btn=document.getElementById('copyAllBtn');
-  const done=()=>{btn.textContent='Copied ✓';setTimeout(()=>{btn.textContent='Copy All';},2000);};
-  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(text).then(done).catch(()=>{fallbackCopy(text);done();});
-  else{fallbackCopy(text);done();}
-}
-
-function renderTray(){
-  document.getElementById('trayCount').textContent=noteBlocks.length;
-  const body=document.getElementById('trayBody');
-  if(noteBlocks.length===0){
-    body.innerHTML='<div class="tray-empty">No phrases added yet. Tap ＋ on any phrase to add it here.</div>';
-    return;
-  }
-  // Preserve distance input values before re-rendering
-  noteBlocks.forEach((b,i)=>{
-    const el=document.getElementById('dist-'+i);
-    if(el) b.distance=el.value;
-  });
-  const cueCat=DATA.categories.find(c=>c.id==='cueing');
-  body.innerHTML=noteBlocks.map((b,i)=>{
-    const assistChips=ASSIST_LEVELS.map((v,j)=>`<button type="button" class="assist-chip${b.assist===v&&v!==''?' active':b.assist===''&&v===''?' active':''}" onclick="setAssist(${i},'${v}')">${ASSIST_LABELS[j]}</button>`).join('');
-    const distRow=b.catId==='gait'?`<div class="tray-section-label">Distance</div><input type="text" class="tray-distance" id="dist-${i}" value="${escAttr(b.distance)}" placeholder="e.g. 150 feet, 2x hallway" oninput="noteBlocks[${i}].distance=this.value"/>`:'' ;
-    // Cueing picker
-    let cueHtml='';
-    if(cueCat){
-      const selectedList=b.cuePhrases.length?`<div class="cue-selected-list">${b.cuePhrases.map((p,pi)=>`<div class="cue-selected-chip"><span class="cue-selected-chip-text">${escAttr(p)}</span><button type="button" class="cue-selected-rm" onclick="removeCuePhrase(${i},${pi})">✕</button></div>`).join('')}</div>`:'';
-      const subBtns=cueCat.subs.map(sub=>{
-        const isOpen=b.cueExpanded===sub.name;
-        const phraseList=isOpen?`<div class="cue-phrases-list">${sub.phrases.map(p=>{
-          const sel=b.cuePhrases.includes(p);
-          return `<button type="button" class="cue-phrase-item${sel?' selected':''}" onclick="toggleCuePhrase(${i},'${esc(p)}')">${sel?'✓ ':''} ${escAttr(p)}</button>`;
-        }).join('')}</div>`:'';
-        return `<button type="button" class="cue-sub-btn${isOpen?' active':''}" onclick="toggleCueExpand(${i},'${esc(sub.name)}')">${sub.name}</button>${phraseList}`;
-      }).join('');
-      cueHtml=`${selectedList}<div class="cue-sub-btns">${subBtns}</div>`;
-    }
-    return `<div class="tray-block">
-      <div class="tray-block-label">${escAttr(b.label)||'Phrase'}</div>
-      <div class="tray-block-text">${escAttr(b.phrase)}</div>
-      <div class="tray-section-label">Assist Level</div>
-      <div class="tray-assist">${assistChips}</div>
-      ${distRow}
-      <div class="tray-section-label">Cueing</div>
-      ${cueHtml}
-      <div class="tray-block-footer" style="margin-top:12px;">
-        <button type="button" class="tray-remove" onclick="removeBlock(${i})">✕ Remove</button>
-        <button type="button" class="tray-copy-btn" id="tray-copy-${i}" onclick="copyBlock(${i},this)">Copy</button>
-      </div>
-    </div>`;
-  }).join('');
 }
 
 // Count all phrases in a category that match current search
@@ -1038,7 +844,7 @@ function render(){
           total++;
           if(!matchesSearch(p))return;
           matched++;
-          html+=phraseCard(p,cat.name,sub.name,cat.disc,cat.id);
+          html+=phraseCard(p,cat.name,sub.name,cat.disc);
         });
       }
     }
@@ -1169,9 +975,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 
   document.getElementById('searchInput').focus();
-  document.getElementById('trayBar').addEventListener('click',toggleTrayOpen);
-  document.getElementById('noteToggle').addEventListener('click',()=>{if(!trayOpen)openTray();else closeTray();});
-  renderTray();
   render();
 
   // Hide filter bar on scroll down in home view
