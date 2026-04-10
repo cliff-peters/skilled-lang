@@ -2,8 +2,6 @@
 
 Searchable library of audit-defensible PT, OT, and ST documentation phrases for Medicare Part B compliance.
 
-Live: [https://cliff-peters.github.io/skilled-lang](https://cliff-peters.github.io/skilled-lang)
-
 ## Features
 
 - 275+ phrases across 17 clinical categories
